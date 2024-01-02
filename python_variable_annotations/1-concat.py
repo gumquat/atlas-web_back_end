@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""type-annotated func 'concat' returns concat"""
+"""Description text goes here"""
 
 
 def concat (str1: str, str2: str) -> str:
