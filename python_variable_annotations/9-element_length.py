@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Annotate the function and return values with the appropriate types"""
+"""Description text goes here"""
 from typing import Iterable, Sequence, List, Tuple
 
 
