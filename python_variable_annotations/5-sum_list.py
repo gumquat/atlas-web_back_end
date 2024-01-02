@@ -4,7 +4,7 @@
 from typing import float, List
 
 
-def sum_list (input_list: List[float]) -> float:
+def sum_list(input_list: List[float]) -> float:
     """
     _summary_
 

@@ -4,7 +4,7 @@
 from typing import str, float
 
 
-def to_str (n: float) -> str:
+def to_str(n: float) -> str:
 	"""
 	_summary_
 
