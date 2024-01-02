@@ -8,7 +8,8 @@ import math
 
 def floor (n: Union[int, float]) -> Union[int, float]:
 
-  """_summary_
+  """
+  _summary_
 
   Args:
       n (Union[int, float]): _description_
