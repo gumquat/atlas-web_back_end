@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from typing import List, Union, float
 
 """Description text goes here"""
+from typing import List, Union, float
 
 
 def sum_mixed_list (mxd_lst: List[Union[int, float]]) -> float:

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from typing import str, float, bool
 
 """Description text goes here"""
+from typing import str, float, bool
 
 
 a: int = 1

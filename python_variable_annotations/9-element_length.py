@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from typing import List, Tuple
 
 """Description text goes here"""
+from typing import List, Tuple
 
 
 def element_length(lst: List[str]) -> List[Tuple[str, int]]:

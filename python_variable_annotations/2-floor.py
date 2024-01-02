@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-import math
 
 """description text goes here"""
+import math
 
 
 def floor (n: float) -> int:

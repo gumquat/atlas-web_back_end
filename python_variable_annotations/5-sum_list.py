@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from typing import float, List
 
 """Description text goes here"""
+from typing import float, List
 
 
 def sum_list (input_list: List[float]) -> float:

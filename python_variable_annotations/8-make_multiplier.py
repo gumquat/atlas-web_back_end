@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from typing import Callable, float
 
 """Description text goes here"""
+from typing import Callable, float
 
 
 def make_multiplier(multiplier: float) -> Callable[[float], float]:
