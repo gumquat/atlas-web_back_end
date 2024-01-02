@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-"""Description text goes here"""
-from typing import str, float, bool
+"""Definition text goes here"""
 
 
 a: int = 1
