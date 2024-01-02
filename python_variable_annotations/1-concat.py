@@ -4,8 +4,8 @@
 
 
 def concat (str1: str, str2: str) -> str:
-	"""
-	_summary_
+    """
+    _summary_
 
     Args:
         str1 (str): _description_
