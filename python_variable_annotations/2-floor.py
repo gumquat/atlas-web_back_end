@@ -6,7 +6,7 @@ from typing import floor, Union
 import math
 
 
-def floor (n: Union[int, float]) -> Union[int, float]:
+def floor (n: float) -> int:
 
   """
   _summary_
@@ -17,4 +17,4 @@ def floor (n: Union[int, float]) -> Union[int, float]:
   Returns:
       Union[int, float]: _description_
   """
-  return floor(n)
+  return math.floor(n)
