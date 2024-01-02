@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
-"""Description text goes here"""
-from typing import Union, tuple, float, str
+"""
+function to_kv that returns a tuple
+"""
+from typing import Tuple, Union
 
 
-def to_kv(k: str, v: Union[int, float]) -> tuple:
+def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """
     _summary_
 
@@ -15,4 +17,4 @@ def to_kv(k: str, v: Union[int, float]) -> tuple:
     Returns:
     tuple: _description_
     """
-    return (k, pow(v, 2))
+    return k, v ** 2.0
