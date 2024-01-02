@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-"""Description text goes here"""
+"""function sum_list that takes input_list of floats and returns sum"""
 from typing import List
 
 
 def sum_list(input_list: List[float]) -> float:
     """
-    Description text goes here
+    Calculate the sum of a list of floats and return the result
     """
     return sum(input_list)
