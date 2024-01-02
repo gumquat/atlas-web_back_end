@@ -6,7 +6,6 @@ import math
 
 
 def floor (n: float) -> int:
-
   """
   _summary_
 

@@ -4,8 +4,14 @@
 
 
 def concat (str1: str, str2: str) -> str:
+	"""
+	_summary_
 
-    """
-    type-annotated func 'concat' returns concat
-    """
-    return str1 + str2
+	Args:
+		str1 (str): _description_
+		str2 (str): _description_
+
+	Returns:
+		str: _description_
+	"""
+	return str1 + str2

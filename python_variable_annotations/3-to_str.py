@@ -5,12 +5,10 @@ from typing import str, float
 
 
 def to_str (n: float) -> str:
-	"""_summary_
-
-	Args:
-		n (float): _description_
+	"""
+	_summary_
 
 	Returns:
-		str: _description_
+		_type_: _description_
 	"""
 	return str(n)
