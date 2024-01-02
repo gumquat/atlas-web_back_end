@@ -2,7 +2,6 @@
 
 """description text goes here"""
 
-from typing import floor, Union
 import math
 
 
