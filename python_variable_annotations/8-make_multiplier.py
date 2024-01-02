@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 
 """Description text goes here"""
-from typing import Callable, float
+from typing import Callable
 
 
 def make_multiplier(multiplier: float) -> Callable[[float], float]:
-     """
-     _summary_
+    """
+    _summary_
 
-     Args:
-          multiplier (float): _description_
+    Args:
+        multiplier (float): _description_
 
-     Returns:
-          Callable[[float], float]: _description_
-     """
-     def multiply(num: float) -> float:
-          return num * multiplier
-     return multiply
+    Returns:
+        Callable[[float], float]: _description_
+    """
+    def multiply(num: float) -> float:
+        return num * multiplier
+    return multiply
