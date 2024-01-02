@@ -3,6 +3,7 @@ from typing import Callable, float
 
 """Description text goes here"""
 
+
 def make_multiplier(multiplier: float) -> Callable[[float], float]:
      """
      _summary_

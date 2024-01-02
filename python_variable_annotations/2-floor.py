@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
+import math
 
 """description text goes here"""
 
-import math
-
 
 def floor (n: float) -> int:
-  """
-  _summary_
+    """
+    _summary_
 
-  Args:
-      n (Union[int, float]): _description_
+    Args:
+        n (Union[int, float]): _description_
 
-  Returns:
-      Union[int, float]: _description_
-  """
-  return math.floor(n)
+    Returns:
+        Union[int, float]: _description_
+    """
+    return math.floor(n)
