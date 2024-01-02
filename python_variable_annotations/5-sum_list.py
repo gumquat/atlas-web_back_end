@@ -6,10 +6,6 @@ from typing import List
 
 def sum_list(input_list: List[float]) -> float:
     """
-    _summary_
-    Args:
-        input_list (List[float]): _description_
-    Returns:
-        float: _description_
+    Description text goes here
     """
     return sum(input_list)
