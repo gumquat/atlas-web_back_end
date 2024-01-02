@@ -5,6 +5,7 @@
 from typing import floor, Union
 import math
 
+
 def floor (n: Union[int, float]) -> Union[int, float]:
 
   """_summary_
