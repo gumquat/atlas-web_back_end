@@ -10,11 +10,11 @@ async def wait_n (n: int, max_delay: int = 10) -> List:
     _summary_
 
     Args:
-        n (int): _description_
-        max_delay (int, optional): _description_. Defaults to 10.
+        n (int): random number
+        max_delay (int, optional): Defaults to 10.
 
     Returns:
-        List: _description_
+        List: list of randomly generated wait times
     """
     delay_list = [await wait_random(max_delay) for _ in range(n)]
     return sorted(delay_list)
