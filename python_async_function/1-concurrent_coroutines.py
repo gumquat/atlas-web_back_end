@@ -7,12 +7,9 @@ wait_random = __import__('0-basic_async_syntax').wait_random
 
 async def wait_n (n: int, max_delay: int = 10) -> List:
     """
-    _summary_
-
     Args:
         n (int): random number
         max_delay (int, optional): Defaults to 10.
-
     Returns:
         List: list of randomly generated wait times
     """
