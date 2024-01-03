@@ -5,7 +5,7 @@ import asyncio
 import random
 
 
-async def wait_random (max_delay: int = 10) -> float:
+async def wait_random(max_delay: int = 10) -> float:
     """
     Args:
     max_delay (int, optional): Defaults to 10.
