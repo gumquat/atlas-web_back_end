@@ -20,14 +20,14 @@ def put (self, key, item):
             del self.cache_data[last_key]
             print("DISCARD:", last_key)
 
-        self.order_used.append(key)  #update the order of the used keys
-        self.cache_data[key] = item  #add the item to the cache
+        self.order_used.append(key)  # update the order of the used keys
+        self.cache_data[key] = item  # add the item to the cache
 
 def get(self, key):
     """retrievce an item from the cache"""
     if key is not None or key not in self.cache_data:
         return None
 
-    self.order_used.remove(key)  #remove the key from the used keys
-    self.order_used.append(key)  #add the key to the end of the used keys
-    return self.cache_data[key]  #return the item from the cache
+    self.order_used.remove(key)  # remove the key from the used keys
+    self.order_used.append(key)  # add the key to the end of the used keys
+    return self.cache_data[key]  # return the item from the cache
