@@ -1,38 +1,35 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
-""" 3-lru_cache """
+"""Description text goes here"""
 BaseCaching = __import__('base_caching').BaseCaching
 
 
 class LRUCache(BaseCaching):
-    """ LRUCache class """
+    """LRUCache class"""
 
     def __init__(self):
-        """ Initialize LRUCache instance """
+        """init LRUCache"""
         super().__init__()
         self.order_used = []
 
-    def put(self, key, item):
-        """ Add an item to the cache """
-        if key is not None and item is not None:
-            if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                # Get the least recently used key and remove it from the cache
-                discarded_key = self.order_used.pop(0)
-                del self.cache_data[discarded_key]
-                print("DISCARD:", discarded_key)
 
-            # Update the order_used list with the most recently used key
-            self.order_used.append(key)
-            # Add the item to the cache
-            self.cache_data[key] = item
+def put(self, key, item):
+    """add an item ot the cache"""
+    if key is not None and item is not None:  # check if the key and item are not None
+        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:  # check if the cache is full
+            last_key = self.order_used.pop(0)  # remove most recent key from the order of used keys
+            del self.cache_data[last_key]  # remove the item from the cache
+            print("DISCARD:", last_key)  # print the discarded key
 
-    def get(self, key):
-        """ Retrieve an item from the cache """
-        if key is None or key not in self.cache_data:
-            return None
+        self.order_used.append(key)  # update the order of the used keys
+        self.cache_data[key] = item  # add the item to the cache
 
-        # Update the order_used list with the most recently used key
-        self.order_used.remove(key)
-        self.order_used.append(key)
 
-        return self.cache_data[key]
+def get(self, key):
+    """retrievce an item from the cache"""
+    if key is not None or key not in self.cache_data:
+        return None
+
+    self.order_used.remove(key)  # remove the key from the used keys
+    self.order_used.append(key)  # add the key to the end of the used keys
+    return self.cache_data[key]  # return the item from the cache
