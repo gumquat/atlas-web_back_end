@@ -28,4 +28,4 @@ class FIFOCache(BaseCaching):
         """
         retrieves an item from the cache
         """
-        return self.cache_data.get(key, None)  # Returns None if key is not found
+        return self.cache_data.get(key, None)
