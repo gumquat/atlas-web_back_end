@@ -12,18 +12,16 @@ class LRUCache(BaseCaching):
         super().__init__()
         self.order_used = []
 
-
     def put(self, key, item):
         """add an item ot the cache"""
         if key is not None and item is not None:  # is the key / item not None?
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:  # is cache full?
-                last_key = self.order_used.pop(0)  # del most recent key from used
+                last_key = self.order_used.pop(0)  # del recent key from used
                 del self.cache_data[last_key]  # remove the item from the cache
                 print("DISCARD:", last_key)  # print the discarded key
 
             self.order_used.append(key)  # update the order of the used keys
             self.cache_data[key] = item  # add the item to the cache
-
 
     def get(self, key):
         """retrievce an item from the cache"""
