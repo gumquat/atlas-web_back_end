@@ -18,6 +18,7 @@ def index_range(page, page_size):
     end_index = page * page_size
     return start_index, end_index
 
+
 class Server:
     """
     Server class to paginate a database of popular baby names
@@ -55,7 +56,7 @@ class Server:
         start_index, end_index = index_range(page, page_size)
 
         with open('Popular_Baby_Names.csv', 'r', newline='', encoding='utf-8')\
-            as csvfile:
+                as csvfile:
             reader = csv.reader(csvfile)
             rows = list(reader)
 
