@@ -5,7 +5,7 @@ Deletion-resilient hypermedia pagination
 """
 import csv
 import math
-from typing import List
+from typing import List, Dict
 
 
 class Server:
@@ -28,7 +28,7 @@ class Server:
 
         return self.__dataset
 
-    def indexed_dataset(self) -> dict[int, List]:
+    def indexed_dataset(self) -> Dict[int, List]:
         """
         Dataset indexed by sorting position, starting at 0
         """
@@ -40,13 +40,13 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = None, page_size: int = 10) -> dict:
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
         Args:
             index (int, optional): Defaults to None.
             page_size (int, optional): Defaults to 10.
         Returns:
-            dict: dictionary containing page details
+            Dict: dictionary containing page details
         """
         assert isinstance(index, int) and index >= 0, \
             "Index must be an integer greater than or equal to 0."
