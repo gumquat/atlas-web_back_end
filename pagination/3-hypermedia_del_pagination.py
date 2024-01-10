@@ -28,7 +28,7 @@ class Server:
 
         return self.__dataset
 
-    def indexed_dataset(self) -> Dict[int, List]:
+    def indexed_dataset(self) -> dict[int, List]:
         """
         Dataset indexed by sorting position, starting at 0
         """
@@ -57,8 +57,8 @@ class Server:
             index = 0
 
         indexed_dataset = self.indexed_dataset()
-        data = [indexed_dataset[i] for i in range(index, \
-            min(index + page_size, len(indexed_dataset)))]
+        data = [indexed_dataset[i] for i in range(index, min(index + page_size, \
+                    len(indexed_dataset)))]
 
         next_index = index + page_size
 
