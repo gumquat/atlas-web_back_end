@@ -57,8 +57,7 @@ class Server:
             index = 0
 
         indexed_dataset = self.indexed_dataset()
-        data = [indexed_dataset[i] for i in range(index,
-                                    min(index + page_size, len(indexed_dataset)))]
+        data = [indexed_dataset[i] for i in range(index, min(index + page_size, len(indexed_dataset)))]
 
         next_index = index + page_size
 
