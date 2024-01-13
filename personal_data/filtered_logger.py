@@ -28,4 +28,5 @@ def filter_datum(
         _type_: the log message of obfuscated data
     """
     pattern = '(' + '|'.join(fields) + r')=[^' + re.escape(separator) + r']*'
-    return re.sub(pattern, lambda match: replace_field(match, redaction), message)
+    return re.sub(pattern, lambda match:
+        replace_field(match, redaction), message)
