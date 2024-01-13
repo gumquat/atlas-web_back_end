@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""description text goes here"""
+"""filtered logger module that obfuscates data in log messages"""
 import logging
 import re
 
@@ -19,6 +19,4 @@ def filter_datum(fields, redaction, message, separator):
     Returns:
         _type_: the log message of obfuscated data
     """
-    pattern = f"({separator})(?:{separator}.*{separator}|$)".join(fields)
-    obfuscated_message = re.sub(pattern, redaction, message)
-    return obfuscated_message
+    return re.sub(fr'(?<={separator}|^)({"|".join(fields)})={redaction}(?={separator}|$)', f'{fields[0]}={redaction}', message)
