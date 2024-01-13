@@ -6,6 +6,10 @@ import re
 from typing import List
 
 
+def replace_field(match, redaction):
+    """to appease pycodestyle"""
+    return match.group(1) + '=' + redaction
+
 def filter_datum(fields: List[str], redaction: str, message: str,
                 separator: str) -> str:
     """_summary_
@@ -21,6 +25,5 @@ def filter_datum(fields: List[str], redaction: str, message: str,
     Returns:
         _type_: the log message of obfuscated data
     """
-    regex = '(' + '|'.join(fields) + r')=[^' + re.escape(separator) + r']*'
-    obfuscated_message = lambda match: match.group(1) + '=' + redaction
-    return re.sub(regex, obfuscated_message, message)
+    pattern = '(' + '|'.join(fields) + r')=[^' + re.escape(separator) + r']*'
+    return re.sub(pattern, lambda match: replace_field(match, redaction), message)
