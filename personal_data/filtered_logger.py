@@ -37,6 +37,7 @@ def filter_datum(
         message
     )
 
+
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
         """
@@ -52,5 +53,7 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         """format a log by obfuscating certain fields"""
-        record.msg = filter_datum(self.fields, self.REDACTION, record.msg, self.SEPARATOR)
+        record.msg = filter_datum(
+            self.fields, self.REDACTION, record.msg, self.SEPARATOR
+            )
         return super().format(record)
