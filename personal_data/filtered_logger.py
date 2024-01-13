@@ -10,9 +10,11 @@ def replace_field(match, redaction):
     """to appease pycodestyle"""
     return match.group(1) + '=' + redaction
 
-def filter_datum(fields: List[str], redaction: str, message: str,
-                separator: str) -> str:
-    """_summary_
+
+def filter_datum(
+                fields: List[str], redaction: str, message: str, separator: str
+                ) -> str:
+    """obfuscate fields in log messages
 
     Args:
         fields (_type_): list of strings representing all
