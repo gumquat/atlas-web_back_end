@@ -41,16 +41,16 @@ def get_logger() -> logging.Logger:
     """
     Logger 'user_data'
     """
-    logger = logging.getLogger('user_data')  # create logger named user_data
-    logger.setLevel(logging.INFO)  # set level to info
-    logger.propagate = False  # prevent duplicate logs
+    """Logger named 'user_data'."""
+    logger = logging.getLogger('user_data')
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
 
-    stream_handler = logging.StreamHandler()  # add stream handler
-    formatter = RedactingFormatter(fields=PII_FIELDS)  # add simple formatter
-    stream_handler.setLevel(logging.INFO)  # set level to info
-    stream_handler.setFormatter(formatter)  # add formatter to handler
+    stream_handler = logging.StreamHandler()
+    formatter = RedactingFormatter(fields=PII_FIELDS)
+    stream_handler.setFormatter(formatter)
 
-    logger.addHandler(stream_handler)  # add handler to logger
+    logger.addHandler(stream_handler)
 
     return logger
 
