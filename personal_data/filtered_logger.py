@@ -37,19 +37,21 @@ def filter_datum(
         message
     )
 
+
 def get_logger() -> logging.Logger:
     """
     Logger 'user_data'
     """
-    logger = logging.getLogger('user_data')
-    logger.setLevel(logging.INFO)
-    logger.propagate = False
+    logger = logging.getLogger('user_data')  # create logger named user_data
+    logger.setLevel(logging.INFO)  # set level to info
+    logger.propagate = False  # prevent duplicate logs
 
-    stream_handler = logging.StreamHandler()
-    formatter = RedactingFormatter(fields=PII_FIELDS)
-    stream_handler.setFormatter(formatter)
+    stream_handler = logging.StreamHandler()  # add stream handler
+    formatter = RedactingFormatter(fields=PII_FIELDS)  # add simple formatter
+    stream_handler.setLevel(logging.INFO)  # set level to info
+    stream_handler.setFormatter(formatter)  # add formatter to handler
 
-    logger.addHandler(stream_handler)
+    logger.addHandler(stream_handler)  # add handler to logger
 
     return logger
 
