@@ -41,7 +41,6 @@ def get_logger() -> logging.Logger:
     """
     Logger 'user_data'
     """
-    """Logger named 'user_data'."""
     logger = logging.getLogger('user_data')
     logger.setLevel(logging.INFO)
     logger.propagate = False
