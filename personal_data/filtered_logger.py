@@ -47,7 +47,7 @@ def get_logger() -> logging.Logger:
     logger.propagate = False  # prevent duplicate logs
 
     stream_handler = logging.StreamHandler()  # add stream handler
-    formatter = RedactingFormatter(fields='PII_FIELDS, %(asctime)s - %(levelname)s - %(message)s')
+    formatter = RedactingFormatter(fields='PII_FIELDS, %(name)s - %(levelname)s - %(asctime)s: %(message)s')
     stream_handler.setLevel(logging.INFO)  # set level to info
     stream_handler.setFormatter(formatter)  # add formatter to handler
 
