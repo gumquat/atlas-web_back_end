@@ -5,7 +5,8 @@ from typing import List
 import logging
 import re
 import os
-import mysql.connector  # ignore error here
+import datetime
+import mysql.connector
 
 PII_FIELDS = ("name", "email", "password", "phone", "ssn")
 
@@ -76,9 +77,7 @@ def get_logger() -> logging.Logger:
     logger.propagate = False  # prevent duplicate logs
 
     stream_handler = logging.StreamHandler()  # add stream handler
-    formatter = RedactingFormatter(
-        fields='PII_FIELDS,%(name)s-%(levelname)s-%(asctime)s:%(message)s'
-        )
+    formatter = RedactingFormatter(fields = PII_FIELDS)
     stream_handler.setLevel(logging.INFO)  # set level to info
     stream_handler.setFormatter(formatter)  # add formatter to handler
 
@@ -93,7 +92,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     user = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
     pword = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
     host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
-    db = os.getenv('PERSONAL_DATA_DB_NAME', 'my_db')
+    db = os.getenv('PERSONAL_DATA_DB_NAME', 'my_db')  # 'my_db' from intranet
 
     db = mysql.connector.connect(  # this connects to the db
         user=user,
@@ -112,10 +111,10 @@ def main():
     display every row in a 'filtered format' [see README]
     """
     db = get_db()
-    # logger = get_logger()
+    logger = get_logger()
     cursor = db.cursor()  # allows interaction with the db [queries, fetches]
 
-    cursor.execute("SELECT * FROM users;"  # retrieve every row in users table
+    cursor.execute("SELECT * FROM users;")  # retrieve every row in users table
     rows = cursor.fetchall()
 
     for row in rows:  # display every row in the 'filtered format'
@@ -131,5 +130,6 @@ def main():
         "Filtered fields:\n%s", "\n".join(PII_FIELDS)
         )
 
+    # dont forget to close everything on your way out!
     cursor.close()
     db.close()
