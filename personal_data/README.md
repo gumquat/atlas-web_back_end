@@ -69,3 +69,17 @@ Database credentials should NEVER be stored in code or checked into version cont
 * Implement a get_db function that returns a connector to the database (mysql.connector.connection.MySQLConnection object).
     - Use the os module to obtain credentials from the environment
     - Use the module mysql-connector-python to connect to the MySQL database (pip3 install mysql-connector-python)
+
+# Problem 4 - Read and Filter Data
+### Implement a 'main function'
+The 'Main' function will obtain a database connection using get_db and retrieve all rows in the users table and display each row under a filtered format like this:
+```
+[HOLBERTON] user_data INFO 2019-11-19 18:37:59,596: name=***; email=***; phone=***; ssn=***; password=***; ip=e848:e856:4e0b:a056:54ad:1e98:8110:ce1b; last_login=2019-11-14T06:16:24; user_agent=Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; KTXN);
+```
+Filtered Fields:
+    - name
+    - email
+    - phone
+    - ssn
+    - password
+* ONLY your main function should run when the module is executed.

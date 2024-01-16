@@ -7,6 +7,33 @@ import re
 import os
 import mysql.connector  # ignore error here
 
+PII_FIELDS = ("name", "email", "password", "phone", "ssn")
+
+
+# THIS CLASS HAS TO BE AT THE TOP OF THE FILE
+class RedactingFormatter(logging.Formatter):
+    """
+    Redacting Formatter Class
+    """
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields: List[str]):
+        """description text"""
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+        self.fields = fields
+
+    def format(self, record: logging.LogRecord) -> str:
+        """
+        format a log by obfuscating certain fields
+        """
+        record.msg = filter_datum(
+            self.fields, self.REDACTION, record.msg, self.SEPARATOR
+            )
+        return super().format(record)
+
 
 def replace_field(match, redaction):
     """to appease pycodestyle"""
@@ -78,22 +105,31 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     return db
 
 
-class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+def main():
+    """
+    no arguments & no returns
+    retrieve every row in the "users table"
+    display every row in a 'filtered format' [see README]
+    """
+    db = get_db()
+    # logger = get_logger()
+    cursor = db.cursor()  # allows interaction with the db [queries, fetches]
 
-    REDACTION = "***"
-    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
+    cursor.execute("SELECT * FROM users;"  # retrieve every row in users table
+    rows = cursor.fetchall()
 
-    def __init__(self, fields: List[str]):
-        """description text"""
-        super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = fields
-
-    def format(self, record: logging.LogRecord) -> str:
-        """format a log by obfuscating certain fields"""
-        record.msg = filter_datum(
-            self.fields, self.REDACTION, record.msg, self.SEPARATOR
+    for row in rows:  # display every row in the 'filtered format'
+        filtered_row = filter_datum(
+            PII_FIELDS, RedactingFormatter.REDACTION, str(row), ";"
             )
-        return super().format(record)
+        logger.info(
+            "[HOLBERTON] user_data INFO %s: %s;",
+            str(datetime.datetime.now()), filtered_row
+            )
+
+    logger.info(  # display the filtered fields
+        "Filtered fields:\n%s", "\n".join(PII_FIELDS)
+        )
+
+    cursor.close()
+    db.close()
