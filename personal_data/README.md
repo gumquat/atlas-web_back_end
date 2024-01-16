@@ -83,3 +83,7 @@ Filtered Fields:
     - ssn
     - password
 * ONLY your main function should run when the module is executed.
+
+# Problem 5 - Encrypting Passwords
+### Implement a hash_password function that expects one string argument name password and returns a salted, hashed password, which is a byte string
+* Use the bcrypt package to perform the hashing (with hashpw)
