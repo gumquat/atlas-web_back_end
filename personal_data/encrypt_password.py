@@ -8,13 +8,16 @@ import bcrypt
 
 
 def hash_password(password: str) -> bytes:
-    """Hash a password using bcrypt with salt."""
-    salt = bcrypt.gensalt()
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-
+    """
+    hash chosen password with bcrypt *salt*
+    """
+    sodium_chloride = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), sodium_chloride)
     return hashed_password
 
 
 def is_valid(hashed_password: bytes, password: str) -> bool:
-    """Check if the provided password matches the hashed password."""
+    """
+    compare password with newly hashed password [not the same]
+    """
     return bcrypt.checkpw(password.encode('utf-8'), hashed_password)
