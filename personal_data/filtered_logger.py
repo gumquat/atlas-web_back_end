@@ -60,17 +60,19 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    """connects to ATLAS MYsql DB."""
-    username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
-    password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    """
+    connects to ATLAS MYsql DB
+    """
+    user = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    pword = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
     host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
-    database = os.getenv('PERSONAL_DATA_DB_NAME', 'my_db')
+    db = os.getenv('PERSONAL_DATA_DB_NAME', 'my_db')
 
     db = mysql.connector.connect(  # this connects to the db
-        user=username,
-        password=password,
+        user=user,
+        password=pword,
         host=host,
-        database=database
+        database=db
     )
 
     return db
