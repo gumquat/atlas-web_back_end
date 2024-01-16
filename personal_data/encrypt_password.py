@@ -11,7 +11,7 @@ def hash_password(password: str) -> bytes:
     """
     hash chosen password with bcrypt *salt*
     """
-    sodium_chloride = bcrypt.gensalt()
+    sodium_chloride = bcrypt.gensalt()  # salt haha
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), sodium_chloride)
     return hashed_password
 

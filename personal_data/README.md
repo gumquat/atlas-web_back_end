@@ -87,3 +87,10 @@ Filtered Fields:
 # Problem 5 - Encrypting Passwords
 ### Implement a hash_password function that expects one string argument name password and returns a salted, hashed password, which is a byte string
 * Use the bcrypt package to perform the hashing (with hashpw)
+
+# Problem 6 - Check Valid Password
+### Implement an is_valid function that expects 2 arguments and returns a boolean
+* Arguments:
+    - hashed_password: bytes type
+    - password: string type
+Use bcrypt to validate that the provided password matches the hashed password.
