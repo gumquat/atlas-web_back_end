@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 """filtered logger module that obfuscates data in log messages"""
+from typing import List
 import logging
 import re
-from typing import List
+import os
+import mysql.connector  # ignore error here
 
 
 def replace_field(match, redaction):
@@ -47,13 +49,31 @@ def get_logger() -> logging.Logger:
     logger.propagate = False  # prevent duplicate logs
 
     stream_handler = logging.StreamHandler()  # add stream handler
-    formatter = RedactingFormatter(fields='PII_FIELDS, %(name)s - %(levelname)s - %(asctime)s: %(message)s')
+    formatter = RedactingFormatter(
+        fields='PII_FIELDS, %(name)s - %(levelname)s - %(asctime)s: %(message)s'
+        )
     stream_handler.setLevel(logging.INFO)  # set level to info
     stream_handler.setFormatter(formatter)  # add formatter to handler
 
     logger.addHandler(stream_handler)  # add handler to logger
-
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """connects to ATLAS MYsql DB."""
+    username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    database = os.getenv('PERSONAL_DATA_DB_NAME', 'my_db')
+
+    db = mysql.connector.connect(  # this connects to the db
+        user=username,
+        password=password,
+        host=host,
+        database=database
+    )
+
+    return db
 
 
 class RedactingFormatter(logging.Formatter):
