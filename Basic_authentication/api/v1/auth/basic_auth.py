@@ -59,17 +59,16 @@ class BasicAuth(Auth):
             # is not a valid Base64 string
             return None
 
-
     def extract_user_credentials(
-        self, decoded_base64_authorization_header: str) -> (str, str):
+            self, decoded_base64_authorization_header: str) -> (str, str):
         """etract user credentials from decoded values
         Args:
-            self (_type_): 
-            str (_type_): 
+            self (_type_):
+            str (_type_):
         """
         # if the decoded_base64_authorization_header is not a valid string
         if decoded_base64_authorization_header is None or \
-                not isinstance(decoded_base64_authorization_header, str):  
+                not isinstance(decoded_base64_authorization_header, str):
             return None, None
         # if ':' not in string
         if ':' not in decoded_base64_authorization_header:
