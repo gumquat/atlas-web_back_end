@@ -6,12 +6,14 @@ from flask import request
 
 
 class Auth:
+    """CLASS AUTH"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
         Check if authentication is required for the given path.
         Args:
         - path (str): The path to check for authentication requirement.
-        - excluded_paths (List[str]): List of paths to be excluded from authentication.
+        - excluded_paths (List[str]): List of paths to be excluded 
+        from authentication.
         Returns:
         - bool: True if authentication is required, False otherwise.
         """
