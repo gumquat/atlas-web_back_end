@@ -39,3 +39,5 @@ response = requests.get(url, headers=headers)
 print(response.text)
 ```
 In this example, replace "your_username" and "your_password" with your actual credentials. Keep in mind that Basic authentication is not considered secure when used without additional encryption (e.g., HTTPS), as the credentials are sent in Base64-encoded form, which can be easily decoded.
+
+## See the README.md within the 'SimpleAPI' directory for implementation and use
