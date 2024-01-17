@@ -21,18 +21,18 @@ class Auth:
         if path is None or excluded_paths is None or not excluded_paths:
             return True
 
-        # check for trailing slash, if none found, add it
+        # Check for trailing slash, if none found, add it.
         if path.endswith("/"):
             normal_path = path
         else:
             normal_path = path + "/"
 
-        for excluded_path in excluded_paths:  # check for exact match
+        for excluded_path in excluded_paths:  # Checking for an exact match.
             if excluded_path.endswith("/"):  # check for trailing slash
                 if normal_path == excluded_path:  # exact match is found here
                     return False  # return false if exact match found
             else:
-                if path.startswith(excluded_path):  # check for prefix
+                if path.startswith(excluded_path):  # Check for prefix.
                     return False
         return True
 
@@ -43,7 +43,10 @@ class Auth:
         Returns:
         - str: The Authorization header or None.
         """
-        return None
+        # Check if the header exists.
+        if request is None or 'Authorization' not in request.headers:
+            return None
+        return request.headers['Authorization']  # Return the header.
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Get the current user from the Flask request.
