@@ -39,7 +39,8 @@ class BasicAuth(Auth):
             self, base64_authorization_header: str) -> str:
         """Decode the Base64 part of the Authorization header.
         Args:
-            base64_authorization_header (str): The Base64 part of the Authorization header
+            base64_authorization_header (str): 
+            The Base64 part of the Authorization header
         Returns:
             str: The decoded Base64 part or None if the decoding failed
         """
