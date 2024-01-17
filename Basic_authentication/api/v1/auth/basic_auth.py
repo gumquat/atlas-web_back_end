@@ -34,3 +34,26 @@ class BasicAuth(Auth):
         # strip() removes leading and trailing spaces
         base64_part = authorization_header[len("Basic "):].strip()
         return base64_part
+
+    def decode_base64_authorization_header(
+            self, base64_authorization_header: str) -> str:
+        """Decode the Base64 part of the Authorization header.
+        Args:
+            base64_authorization_header (str): The Base64 part of the Authorization header
+        Returns:
+            str: The decoded Base64 part or None if the decoding failed
+        """
+        if base64_authorization_header is None \
+                or not isinstance(base64_authorization_header, str):
+            return None
+
+        try:
+            # decode the Base64 string
+            decoded_bytes = base64.b64decode(base64_authorization_header)
+            # then convert it into a UTF-8 string
+            decoded_string = decoded_bytes.decode('utf-8')
+            return decoded_string
+        except base64.binascii.Error:  # if decoding fails:
+            # raise error if base64_authorization_header
+            # is not a valid Base64 string
+            return None
