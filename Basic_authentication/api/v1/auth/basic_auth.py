@@ -90,7 +90,7 @@ class BasicAuth(Auth):
             return None
 
         # search for User instance in the database (file)
-        users = User.search({"email": user_email})
+        users = User.search({"email": user_email})  # list of User instances
         if not users:  # no users found wit the given email
             return None
 
