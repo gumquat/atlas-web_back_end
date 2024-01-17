@@ -76,3 +76,26 @@ class BasicAuth(Auth):
         # split the decoded value into "{email} ':' {}password"
         email, password = decoded_base64_authorization_header.split(':', 1)
         return email, password
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """Create a user object from the user credentials
+        Args:
+            self (_type_):
+        """
+        if user_email is None or not isinstance(user_email, str):
+            return None
+
+        if user_pwd is None or not isinstance(user_pwd, str):
+            return None
+
+        # search for User instance in the database (file)
+        users = User.search({"email": user_email})
+        if not users:  # no users found wit the given email
+            return None
+
+        user = users[0]
+        if not user.is_valid_password(user_pwd):  # password is not valid
+            return None
+
+        return user
