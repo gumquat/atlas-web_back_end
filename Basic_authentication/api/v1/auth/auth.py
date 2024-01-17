@@ -55,4 +55,4 @@ class Auth:
         Returns:
         - TypeVar('User'): The current user or None.
         """
-        return None
+        
