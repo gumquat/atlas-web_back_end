@@ -24,30 +24,26 @@ else:  # If the AUTH_TYPE is not Basic import and insantiate a different class
 
 
 @app.before_request
-def before_request_func() -> None:
-    """ Before request handler function
-            before_request_func = None
-            A dictionary with lists of functions that will be called
-            at the beginning of each request.
-            The key of the dictionary is the name of the blueprint
-            this function is active for,
-            or None for all requests.
-            To register a function, use the before_request() decorator.
-    """
-    path_list = ['/api/v1/status/',
-                '/api/v1/unauthorized',
-                '/api/v1/forbidden',
-                '/api/v1/auth_session/login/']
-    if auth and auth.require_auth(request.path, path_list):
-        if auth.authorization_header(request) is None\
-                and auth.session_cookie(request) is None:
-            abort(401)
-        if auth.authorization_header(request) is None\
-                and auth.session_cookie(request):
-            abort(403)
-        if auth.current_user(request) is None:
-            abort(403)
-        request.current_user = auth.current_user(request)
+def before_request() -> None:
+    """Check if the AUTH_TYPE is Basic, if not, skip this check"""
+    if auth is None:
+        return
+
+    excluded_paths = [  # List of paths to be excluded from authentication
+        '/api/v1/status/',
+        '/api/v1/unauthorized/',
+        '/api/v1/forbidden/']
+    # Check if the path is not in the excluded paths list.
+    # If the path is not in the excluded paths list,
+    # check if authentication is required for the given path.
+    if request.path not in excluded_paths:
+        if auth and auth.require_auth(request.path, excluded_paths):
+            if auth.authorization_header(request) is None:  # If no header
+                abort(401)
+            if auth.current_user(request) is None:  # If no user
+                abort(403)
+            # assign the current user to the request
+            request.current_user = auth.current_user(request)
 
 
 @app.errorhandler(404)
