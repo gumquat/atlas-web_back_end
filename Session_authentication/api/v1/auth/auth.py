@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
+
 """documentation string here"""
+
+from typing import List
+from typing import TypeVar
 from flask import request
-from typing import List, TypeVar
 
 
 class Auth:
@@ -52,3 +55,4 @@ class Auth:
         Returns:
         - TypeVar('User'): The current user or None.
         """
+        
