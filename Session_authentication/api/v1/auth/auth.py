@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
-"""This class is the template
-for all authentication system
-you will implement."""
+"""documentation string here"""
 from flask import request
 from typing import List, TypeVar
 
 
 class Auth:
-    """class to manage the API authentication"""
+    """auth class for the API"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """returns false"""
+        """Check if authentication is required for the given path.
+        Args:
+        - path (str): The path to check for authentication requirement.
+        - excluded_paths (List[str]): List of paths to be excluded
+        from authentication.
+        Returns:
+        - bool: True if authentication is required, False otherwise.
+        """
         if path is None or excluded_paths is None or excluded_paths == []:
             return True
         if path[-1] != '/':
@@ -19,14 +24,21 @@ class Auth:
         return True
 
     def authorization_header(self, request=None) -> str:
-        """returns none"""
-        if request is None:
+        """Get the Authorization header from the Flask request.
+        Args:
+        - request: The Flask request object.
+        Returns:
+        - str: The Authorization header or None.
+        """
+        # Check if the header exists.
+        if request is None or 'Authorization' not in request.headers:
             return None
-        if 'Authorization' not in request.headers:
-            return None
-        else:
-            return request.headers['Authorization']
+        return request.headers['Authorization']  # Return the header.
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """returns none"""
-        return None
+        """Get the current user from the Flask request.
+        Args:
+        - request: The Flask request object.
+        Returns:
+        - TypeVar('User'): The current user or None.
+        """
