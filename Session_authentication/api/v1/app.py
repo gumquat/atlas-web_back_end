@@ -15,10 +15,13 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 
 auth_type = getenv("AUTH_TYPE")
-if getenv('AUTH_TYPE') == 'basic_auth':  # If the AUTH_TYPE is Basic...
+if auth_type == 'basic_auth':  # If the AUTH_TYPE is Basic...
     from api.v1.auth.basic_auth import BasicAuth  # ...import the class...
     auth = BasicAuth()  # ...then instantiate the class
-else:  # If the AUTH_TYPE is not Basic import and insantiate a different class
+elif auth_type == 'session_auth':
+    from api.v1.auth.session_auth import SessionAuth
+    auth = SessionAuth()
+elif auth_type:  # If the AUTH_TYPE is not Basic import and insantiate a different class
     from api.v1.auth.auth import Auth
     auth = Auth()
 
