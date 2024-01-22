@@ -3,10 +3,10 @@
 Route module for the API
 """
 from flask import Flask, jsonify, abort, request
+import os
 from os import getenv
 from api.v1.views import app_views
 from flask_cors import (CORS, cross_origin)
-import os
 
 
 app = Flask(__name__)
@@ -38,16 +38,14 @@ def before_request() -> None:
     # Check if the path is not in the excluded paths list.
     # If the path is not in the excluded paths list,
     # check if authentication is required for the given path.
-    if not auth.require_auth(request.path, excluded_paths):
-        return
-
-    if auth.authorization_header(
-            request) is None and auth.session_cookie(request) is None:
-        abort(401)
-
-    request.current_user = auth.current_user(request)
-    if auth.current_user(request) is None:
-        abort(403)
+    if request.path not in excluded_paths:
+        if auth and auth.require_auth(request.path, excluded_paths):
+            if auth.authorization_header(request) is None:  # If no header
+                abort(401)
+            if auth.current_user(request) is None:  # If no user
+                abort(403)
+            # assign the current user to the request
+            request.current_user = auth.current_user(request)
 
 
 @app.errorhandler(404)
