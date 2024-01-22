@@ -9,16 +9,16 @@ from api.v1.views import app_views
 def status() -> str:
     """ GET /api/v1/status
     Return:
-        - the status of the API
+    - the status of the API
     """
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats/', strict_slashes=False)
+@app_views.route('/stats/', strict_slashes=False, methods=['GET'])
 def stats() -> str:
     """ GET /api/v1/stats
     Return:
-        - the number of each objects
+    - the number of each objects
     """
     from models.user import User
     stats = {}
@@ -26,13 +26,22 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/unauthorized/', methods=['GET'], strict_slashes=False)
-def unauthorized():
-    """route to an unauthorized location"""
+@app_views.route('/unauthorized/', strict_slashes=False, methods=['GET'])
+def unauthorized() -> str:
+    """ GET /api/v1/unauthorized
+    Return:
+    - abort(401)
+    401 means “Unauthorized”, but you redirect
+    to the login page instead of returning that status
+    """
     abort(401)
 
 
-@app_views.route('/forbidden/', methods=['GET'], strict_slashes=False)
-def forbidden_route():
-    """the forbidden one"""
+@app_views.route("/forbidden/", strict_slashes=False, methods=['GET'])
+def forbidden() -> str:
+    """ GET /api/v1/forbidden
+    Returns:
+        str: abort(403)
+        403 means “Forbidden”,
+    """
     abort(403)
