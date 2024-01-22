@@ -24,7 +24,7 @@ else:  # If the AUTH_TYPE is not Basic import and insantiate a different class
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """Check if the AUTH_TYPE is Basic, if not, skip this check"""
     if auth is None:
         return
@@ -37,13 +37,13 @@ def before_request():
     # If the path is not in the excluded paths list,
     # check if authentication is required for the given path.
     if request.path not in excluded_paths:
-        if auth.require_auth(request.path, excluded_paths):
+        if auth and auth.require_auth(request.path, excluded_paths):
             if auth.authorization_header(request) is None:  # If no header
                 abort(401)
-            # assign the current user to the request
-            request.current_user = auth.current_user(request) 
             if auth.current_user(request) is None:  # If no user
                 abort(403)
+            # assign the current user to the request
+            request.current_user = auth.current_user(request)
 
 
 @app.errorhandler(404)
