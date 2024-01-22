@@ -1,6 +1,7 @@
-# Simple API
+# Simple API - Session Authentication
 
 Simple HTTP API for playing with `User` model.
+
 
 ## Files
 
