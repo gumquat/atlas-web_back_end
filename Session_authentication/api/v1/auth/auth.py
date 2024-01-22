@@ -15,12 +15,22 @@ class Auth:
         Returns:
         - bool: True if authentication is required, False otherwise.
         """
-        if path is None or excluded_paths is None or excluded_paths == []:
+        if path is None or excluded_paths is None or not excluded_paths:
             return True
-        if path[-1] != '/':
-            path += '/'
-        if path in excluded_paths:
-            return False
+
+        # Check for trailing slash, if none found, add it.
+        if path.endswith("/"):
+            normal_path = path
+        else:
+            normal_path = path + "/"
+
+        for excluded_path in excluded_paths:  # Checking for an exact match.
+            if excluded_path.endswith("/"):  # check for trailing slash
+                if normal_path == excluded_path:  # exact match is found here
+                    return False  # return false if exact match found
+            else:
+                if path.startswith(excluded_path):  # Check for prefix.
+                    return False
         return True
 
     def authorization_header(self, request=None) -> str:
