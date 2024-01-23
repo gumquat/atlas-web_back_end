@@ -5,7 +5,7 @@
 from typing import List
 from typing import TypeVar
 from flask import request
-
+import os
 
 class Auth:
     """auth class for the API"""
@@ -55,4 +55,14 @@ class Auth:
         Returns:
         - TypeVar('User'): The current user or None.
         """
-        
+
+    def session_cookie(self, request=None):
+        """_summary_
+        Args:
+            request (_type_, optional): _description_. Defaults to None.
+        Returns:
+            _type_: return cookie value from a request
+        """
+        if request is None:
+            return None
+        return request.cookies.get(os.getenv('SESSION_NAME'))
