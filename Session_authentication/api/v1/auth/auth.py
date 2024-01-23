@@ -7,6 +7,7 @@ from typing import TypeVar
 from flask import request
 import os
 
+
 class Auth:
     """auth class for the API"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
