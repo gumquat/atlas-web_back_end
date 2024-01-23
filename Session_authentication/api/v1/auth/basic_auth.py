@@ -17,7 +17,11 @@ class BasicAuth(Auth):
             return None
         if not authorization_header.startswith('Basic '):
             return None
-        # return authorization_header[6:]
+        # TEST HERE return authorization_header[6:]
+        # extracts the Base64 part after "Basic "
+        # strip() removes leading and trailing spaces
+        base64_part = authorization_header[len("Basic "):].strip()
+        return base64_part
 
     def decode_base64_authorization_header(
             self, base64_authorization_header: str) -> str:
