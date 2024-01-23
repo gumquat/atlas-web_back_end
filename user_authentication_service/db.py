@@ -39,9 +39,15 @@ class DB:
         Returns:
             User: user as an object
         """
+        DBSession = sessionmaker(bind=self._engine)
+
+        # Open a new session
+        session = DBSession()
         new_user = User(email=email, hashed_password=hashed_password)
-        self._session.add(new_user)
-        self._session.commit()
+        session.add(new_user)
+        session.commit()
+        # Close the session
+        session.close()
         return new_user
 
     def find_user_by(self, **kwargs) -> User:
