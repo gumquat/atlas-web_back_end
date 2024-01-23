@@ -40,15 +40,20 @@ class DB:
         Returns:
             User: user as an object
         """
+        DBSession = sessionmaker(bind=self._engine)
+
+        session = DBSession()  # Open a new session
+        # make a user here
         new_user = User(email=email, hashed_password=hashed_password)
-        self._session.add(new_user)
-        self._session.commit()
+        session.add(new_user)  # add the user here
+        session.commit()  # commit the changes
+
+        session.close()  # Close the session
         return new_user
 
 
     def find_user_by(self, **kwargs) -> User:
-        """Find a user in the database
-        based on input arguments
+        """Find a user in the database based on input arguments
         Args:
             Self:
             Kwargs:
@@ -58,7 +63,7 @@ class DB:
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
             if user is None:
-                raise NoResultFound("No user found.")
+                raise NoResultFound("No user found with the specified criteria.")
             return user
-        except InvalidRequestError as x:
-            raise InvalidRequestError(f"Invalid request: {x}")
+        except InvalidRequestError as e:
+            raise InvalidRequestError(f"Invalid request: {e}")
