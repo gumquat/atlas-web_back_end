@@ -36,3 +36,32 @@ class SessionAuth(Auth):
         if session_id is None or type(session_id) is not str:
             return None
         return self.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None):
+        """
+        returns a user instance
+        from a cookie or None if no cookie is set
+        """
+        session_id = self.session_cookie(request)
+        user_id = self.user_id_for_session_id(session_id)
+        if user_id is None:
+            return None
+        return User.get(user_id)
+
+    def destroy_session(self, request=None):
+        """ end the seshion and remove the session id from the dictionary
+        Args:
+            request (_type_, optional): 
+        Returns:
+            nothin
+        """
+        if request is None:
+            return False
+        session_id = self.session_cookie(request)
+        if session_id is None:
+            return False
+        user_id = self.user_id_for_session_id(session_id)
+        if user_id is None:
+            return False
+        del self.user_id_by_session_id[session_id]
+        return True
