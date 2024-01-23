@@ -8,8 +8,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound, InvalidRequestError
-from user import Base, User
 
+from user import User, Base
 
 class DB:
     """DB class
@@ -18,7 +18,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=False)
+        self._engine = create_engine("sqlite:///a.db", echo=True)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -32,38 +32,13 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str) -> User:
-        """adds new user to db
-        Args:
-            email (str): user email
-            hashed_password (str): user pword
-        Returns:
-            User: user as an object
-        """
-        DBSession = sessionmaker(bind=self._engine)
-
-        session = DBSession()  # Open a new session
-        # make a user here
-        new_user = User(email=email, hashed_password=hashed_password)
-        session.add(new_user)  # add the user here
-        session.commit()  # commit the changes
-
-        session.close()  # Close the session
-        return new_user
-
-
     def find_user_by(self, **kwargs) -> User:
         """Find a user in the database based on input arguments
-        Args:
-            Self:
-            Kwargs:
-        Returns:
-            User:
         """
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
             if user is None:
                 raise NoResultFound("No user found with the specified criteria.")
             return user
-        except InvalidRequestError as x:
-            raise InvalidRequestError(f"Invalid request: {x}")
+        except InvalidRequestError as e:
+            raise InvalidRequestError(f"Invalid request: {e}")
