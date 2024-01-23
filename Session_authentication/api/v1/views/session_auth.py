@@ -48,7 +48,8 @@ def login():
 @app_views.route('/auth_session/logout',
                  methods=['DELETE'], strict_slashes=False)
 def logout():
-    """logout user"""
+    """i wonder what this does
+    """
     if not auth.destroy_session(request):
         abort(404)
     return jsonify({}), 200
