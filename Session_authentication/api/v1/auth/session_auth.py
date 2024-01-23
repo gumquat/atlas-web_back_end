@@ -21,6 +21,6 @@ class SessionAuth(Auth):
         if user_id is None or not isinstance(user_id, str):
             return None
         session_id = str(uuid.uuid4()) # Generate a Session ID
-        # Use this sessionID as key for dictionary user_id_by_session_id
+        # use this sessionID as key for dictionary user_id_by_session_id
         self.user_id_by_session_id[session_id] = user_id
         return session_id
