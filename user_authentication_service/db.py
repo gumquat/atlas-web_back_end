@@ -42,9 +42,10 @@ class DB:
         DBSession = sessionmaker(bind=self._engine)
 
         session = DBSession()  # Open a new session
+        # make a user here
         new_user = User(email=email, hashed_password=hashed_password)
-        session.add(new_user)
-        session.commit()
+        session.add(new_user)  # add the user here
+        session.commit()  # commit the changes
 
         session.close()  # Close the session
         return new_user
