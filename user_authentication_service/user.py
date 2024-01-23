@@ -5,7 +5,12 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class User(Base):
+    """user base class
+    Args:
+        Base (_type_): _description_
+    """
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
