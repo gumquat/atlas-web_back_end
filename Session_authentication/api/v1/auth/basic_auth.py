@@ -47,8 +47,11 @@ class BasicAuth(Auth):
 
     def extract_user_credentials(
             self, decoded_base64_authorization_header: str) -> (str, str):
-        """returns the user email and password
-        from the Base64 decoded value"""
+        """etract user credentials from decoded values
+        Args:
+            self (_type_):
+            str (_type_):
+        """
         if decoded_base64_authorization_header is None:
             return None, None
         if not isinstance(decoded_base64_authorization_header, str):
@@ -61,8 +64,10 @@ class BasicAuth(Auth):
 
     def user_object_from_credentials(
             self, user_email: str, user_pwd: str) -> TypeVar('User'):
-        """returns the User instance based
-        on his email and password"""
+        """Create a user object from the user credentials
+        Args:
+            self (_type_):
+        """
         if user_email is None or type(user_email) is not str:
             return None
         if user_pwd is None or type(user_pwd) is not str:
@@ -77,8 +82,8 @@ class BasicAuth(Auth):
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """overloads Auth and retrieves
-        the User instance for a request"""
+        """ Get the current user from the Flask request.
+        """
         if request is None:
             return None
         authorized_header = self.authorization_header(request)
