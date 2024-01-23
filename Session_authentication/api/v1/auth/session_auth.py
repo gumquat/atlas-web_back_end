@@ -49,9 +49,9 @@ class SessionAuth(Auth):
         return User.get(user_id)
 
     def destroy_session(self, request=None):
-        """ end the seshion and remove the session id from the dictionary
+        """ end the session and remove the session id from the dictionary
         Args:
-            request (_type_, optional): 
+            request (_type_, optional): The Flask request object. Defaults to None.
         Returns:
             nothin
         """
