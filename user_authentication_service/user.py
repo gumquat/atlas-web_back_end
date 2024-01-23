@@ -10,8 +10,9 @@ Base = declarative_base()
 
 class User(Base):
     """user base class
+    defines user by attributes
     Args:
-        Base (_type_): _description_
+        Base (_type_): description
     """
     __tablename__ = 'users'
 
