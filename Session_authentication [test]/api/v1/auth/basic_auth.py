@@ -47,7 +47,6 @@ class BasicAuth(Auth):
         if base64_authorization_header is None \
                 or not isinstance(base64_authorization_header, str):
             return None
-
         try:
             # decode the Base64 string
             decoded_bytes = base64.b64decode(base64_authorization_header)

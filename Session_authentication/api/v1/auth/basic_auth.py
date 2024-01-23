@@ -35,9 +35,14 @@ class BasicAuth(Auth):
                 or not isinstance(base64_authorization_header, str):
             return None
         try:
-            return base64.b64decode(base64_authorization_header)\
-                .decode('utf-8')
-        except(base64.binascii.Error, UnicodeDecodeError):
+            # decode the Base64 string
+            decoded_bytes = base64.b64decode(base64_authorization_header)
+            # then convert it into a UTF-8 string
+            decoded_string = decoded_bytes.decode('utf-8')
+            return decoded_string
+        except base64.binascii.Error:  # if decoding fails:
+            # raise error if base64_authorization_header
+            # is not a valid Base64 string
             return None
 
     def extract_user_credentials(
