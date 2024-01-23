@@ -8,8 +8,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound, InvalidRequestError
+from user import Base, User
 
-from user import User, Base
 
 class DB:
     """DB class
@@ -18,7 +18,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -32,13 +32,33 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
+    def add_user(self, email: str, hashed_password: str) -> User:
+        """adds new user to db
+        Args:
+            email (str): user email
+            hashed_password (str): user pword
+        Returns:
+            User: user as an object
+        """
+        if self.__session is None:
+            DBSession = sessionmaker(bind=self._engine)
+            self.__session = DBSession()
+        return self.__session
+
+
     def find_user_by(self, **kwargs) -> User:
-        """Find a user in the database based on input arguments
+        """Find a user in the database
+        based on input arguments
+        Args:
+            Self:
+            Kwargs:
+        Returns:
+            User:
         """
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
             if user is None:
-                raise NoResultFound("No user found with the specified criteria.")
+                raise NoResultFound("No user found.")
             return user
-        except InvalidRequestError as e:
-            raise InvalidRequestError(f"Invalid request: {e}")
+        except InvalidRequestError as x:
+            raise InvalidRequestError(f"Invalid request: {x}")
