@@ -65,3 +65,21 @@ class SessionAuth(Auth):
             return False
         del self.user_id_by_session_id[session_id]
         return True
+
+def destroy_session(self, request=None):
+    """big red button, destroy user session!
+    Parameters:
+    - request: The request object associated with the session
+    Returns:
+    - True if the session was successfully destroyed, False otherwise.
+    """
+    if request is None:  # check if requested obj is valid
+        return False
+    session_id = self.session_cookie(request)  # get session ID
+    if session_id is None:  # if no ID return false
+        return False
+    user_id = self.user_id_for_session_id(session_id)  # get relavent user ID
+    if user_id is None:  # if no user ID return fasle
+        return False
+    del self.user_id_by_session_id[session_id]  # del session entry from dict
+    return True  # if all goes well the session gets deleted and returns true
