@@ -19,7 +19,7 @@ def payload():
 
 
 @app.route('/users', methods=['POST'])
-def users(email, password):
+def users():  # dont include any args?
     """checked for registered users
     Args:
         email (_type_): email
