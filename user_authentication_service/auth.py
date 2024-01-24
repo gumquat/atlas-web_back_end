@@ -21,6 +21,7 @@ class Auth:
         """hashes user passwords
         wit hsalt so they can be stored gooder
         """
-        salt = bcrypt.gensalt()
+        salt = bcrypt.gensalt()  # generate random salt
+        # hash the password and store it in hashed_password
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-        return hashed_password
+        return hashed_password  # return the hashed password
