@@ -103,6 +103,7 @@ class Auth:
 
 # OUTSIDE THE AUTH CLASS STARTS HERE
 
+
 def _hash_password(password: str) -> bytes:
     """hash password
     """
