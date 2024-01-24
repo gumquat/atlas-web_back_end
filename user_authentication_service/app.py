@@ -97,7 +97,7 @@ def logout():
 
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
-def profile(session_id: str):
+def profile():
     """user profilee endpoint
     """
     session_id = request.cookies.get('session_id')
