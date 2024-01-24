@@ -15,18 +15,6 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def register_user(self, email: str, password: str) -> User:
-        """Register a user with the provided email and password
-        """
-        try:
-            user = self._db.find_user_by(email=email)
-            raise ValueError(f"User {email} already exists")
-        except NoResultFound:
-            # User not found, proceed with registration
-            hashed_password = self._hash_password(password)
-            new_user = self._db.add_user(email, hashed_password)
-            return new_user
-
     def valid_login(self, email: str, password: str) -> bool:
         """Valid Login
         """
@@ -48,6 +36,17 @@ class Auth:
         # hash the password and store it in hashed_password
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
         return hashed_password  # return the hashed password
+
+    def register_user(self, email: str, password: str) -> User:
+        """make a user with email and password
+        """
+        try:  # check if user already exists in db
+            user = self._db.find_user_by(email=email)
+            raise ValueError(f"User {email} already exists")
+        except NoResultFound:  # if user does not exist, create user
+            hashed_password = self._hash_password(password)  # hash password
+            new_user = self._db.add_user(email, hashed_password)  # user to db
+            return new_user  # return new user data
 
     def create_session(self, email: str) -> str:
         """Create a session ID for a user with their email.
