@@ -3,16 +3,58 @@
 """ flask app
 """
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, abort, redirect
+from auth import Auth
 
 app = Flask(__name__)
-
+AUTH = Auth()
 
 @app.route("/")
 def payload():
     """returns json string, aka a payload
     """
     return jsonify({"message": "Bienvenue"})
+
+
+@app.route('/users', methods=['POST'])
+def user(email, password):
+    """checked for registered users
+    Args:
+        email (_type_): email
+        password (_type_): password
+    Returns: 
+        confirmation of creation of user 
+        or an error
+    """
+    try:
+        # get the email and password
+        email = request.form.get('email')
+        password = request.form.get('password')
+        # create a user object with that data
+        user = AUTH.register_user(email, password)
+        #  respond with the user's email and a confirmation message
+        response = {"email": user.email, "message": "user created"}
+        return jsonify(response), 200
+    except ValueError as e:  # why does it have to be 'e'?
+        return jsonify({"message": str(e)}), 400
+
+
+# Define the route for user registration
+@app.route("/users", methods=["POST"])
+def register_user_endpoint():
+    try:
+        # Extract email and password from form data
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        # Register the user
+        register_user(email, password)
+
+        # Respond with success message
+        return jsonify({"email": email, "message": "user created"})
+    except Exception as e:
+        # If user is already registered, respond with error message and 400 status code
+        return jsonify({"message": str(e)}), 400
 
 
 if __name__ == "__main__":
