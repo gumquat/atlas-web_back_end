@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-""" 'Auth' model """
+""" auth model """
+
 import bcrypt
 from db import DB
 from user import User
@@ -17,6 +18,9 @@ class Auth:
         self._db = DB()
 
     def _hash_password(self, password: str) -> bytes:
-        """hashes passwords
+        """hashes user passwords
+        wit hsalt so they can be stored gooder
         """
-        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+        return hashed_password
