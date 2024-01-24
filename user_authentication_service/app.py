@@ -5,11 +5,12 @@
 
 from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
+import uuid
 
 app = Flask(__name__)
 AUTH = Auth()
 
-@app.route("/")
+@app.route("/", methods=['GET'], strict_slashes=False)
 def payload():
     """returns json string, aka a payload
     """
