@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """DB module
 """
-from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.orm.exc import NoResultFound, InvalidRequestError
+from sqlalchemy.orm.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 
 from user import Base, User
 
 
 class DB:
-    """DB class
+"""DB class
     """
 
     def __init__(self) -> None:
@@ -39,15 +40,9 @@ class DB:
         Returns:
             User: user as an object
         """
-        DBSession = sessionmaker(bind=self._engine)
-
-        # Open a new session
-        session = DBSession()
         new_user = User(email=email, hashed_password=hashed_password)
-        session.add(new_user)
-        session.commit()
-        # Close the session
-        session.close()
+        self._session.add(new_user)
+        self._session.commit()
         return new_user
 
     def find_user_by(self, **kwargs) -> User:
