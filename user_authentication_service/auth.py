@@ -16,11 +16,9 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def _hash_password(self, password: str) -> bytes:
-        """hashes user passwords
-        with salt so they can be stored
+    def _hash_password(password: str) -> bytes:
+        """hash password
         """
-
         salt = bcrypt.gensalt()  # generate random salt
         # hash the password and store it in hashed_password
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
