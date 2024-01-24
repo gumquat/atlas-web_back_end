@@ -88,7 +88,7 @@ class Auth:
                 pass
 
     def get_reset_password_token(self, email: str) -> str:
-        """if existing, generate a uuid then update 
+        """if existing, generate a uuid then update
         the users 'reset_token' field with that uuid
         Args:
             email
