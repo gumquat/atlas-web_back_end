@@ -26,8 +26,7 @@ class Auth:
         try:  # locate the user by email again
             user = self._db.find_user_by(email=email)
             if user and bcrypt.checkpw(  # user & pword are good, return true
-                    password.encode('utf-8'),
-                        user.hashed_password):
+                    password.encode('utf-8'), user.hashed_password):
                 return True
         except NoResultFound:
             pass  # nothing here yet
