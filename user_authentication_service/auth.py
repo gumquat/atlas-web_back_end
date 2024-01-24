@@ -43,13 +43,9 @@ class Auth:
         return False
 
     def _hash_password(self, password: str) -> bytes:
-        """hash password
+        """Hash a password for storing.
         """
-        salt = bcrypt.gensalt()  # generate random salt
-        # hash the password and store it in hashed_password
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-        return hashed_password  # return the hashed password
-
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     def create_session(self, email: str) -> str:
         """Create a session ID for a user with their email.
