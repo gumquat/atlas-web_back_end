@@ -98,7 +98,7 @@ class Auth:
         self._db.update_user(user.id, hashed_password=pwd, reset_token=None)
 
 
-def _hash_password(self, password: str) -> bytes:
+def _hash_password(password: str) -> bytes:
     """hash password
     """
     salt = bcrypt.gensalt()  # generate random salt
