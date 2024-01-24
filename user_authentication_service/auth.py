@@ -19,4 +19,4 @@ class Auth:
     def _hash_password(password: str) -> bytes:
         """hash password
         """
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
