@@ -104,8 +104,11 @@ class Auth:
         return token
 
     def update_password(self, reset_token: str, password: str) -> None:
-        """ hash the password and update the user’s hashed_password field with
-            the new password and the reset_token field to None """
+        """hash the given password
+            replace that users hashed_password field with..
+            ..the new password
+            set reset_token field to 'None' 
+            """
         try:
             user = self._db.find_user_by(reset_token=reset_token)
         except NoResultFound:
