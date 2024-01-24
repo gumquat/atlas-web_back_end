@@ -10,6 +10,7 @@ import uuid
 app = Flask(__name__)
 AUTH = Auth()
 
+
 @app.route("/", methods=['GET'], strict_slashes=False)
 def payload():
     """returns json string, aka a payload
@@ -18,13 +19,13 @@ def payload():
 
 
 @app.route('/users', methods=['POST'])
-def user(email, password):
+def users(email, password):
     """checked for registered users
     Args:
         email (_type_): email
         password (_type_): password
-    Returns: 
-        confirmation of creation of user 
+    Returns:
+        confirmation of creation of user
         or an error
     """
     try:
@@ -53,7 +54,8 @@ def register_user_endpoint():
         # Respond with success message
         return jsonify({"email": email, "message": "user created"})
     except Exception as e:
-        # If user is already registered, respond with error message and 400 status code
+        # If user is already registered
+        # respond with error message and 400 status code
         return jsonify({"message": str(e)}), 400
 
 
