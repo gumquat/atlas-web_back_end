@@ -9,7 +9,7 @@ import uuid
 
 
 class Auth:
-    """Auth class to interact with the authentication database.
+    """class for interacting with db
     """
 
     def __init__(self):
@@ -17,16 +17,22 @@ class Auth:
 
     def valid_login(self, email: str, password: str) -> bool:
         """checks for valid login
+        Args:
+            email and password
+        Returns:
+            True if login is valid
+            False if login is invalid
         """
-        try:
+        try:  # locate the user by email again
             user = self._db.find_user_by(email=email)
-            if user and bcrypt.checkpw(
-                    password.encode('utf-8'), user.hashed_password):
+            if user and bcrypt.checkpw(  # user & pword are good, return true
+                    password.encode('utf-8'),
+                        user.hashed_password):
                 return True
         except NoResultFound:
-            pass
+            pass  # nothing here yet
         except InvalidRequestError:
-            pass
+            pass  # nothing here yet
         return False
 
     def _hash_password(self, password: str) -> bytes:
