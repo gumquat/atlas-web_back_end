@@ -41,29 +41,6 @@ def users():  # no args
         return jsonify({"message": str(e)}), 400
 
 
-# # route to user registration(s)
-# @app.route("/users", methods=["POST"])
-# def register_user_endpoint():
-#     """Register a new user
-#     Returns:
-#         _type_: description
-#     """
-#     try:
-#         # get email and password from form data
-#         email = request.form.get("email")
-#         password = request.form.get("password")
-
-#         # Register. That. Userrr!!!
-#         register_user(email, password)
-
-#         # Respond with success message
-#         return jsonify({"email": email, "message": "user created"})
-#     except Exception as e:
-#         # If user is already registered
-#         # respond with error message and 400 status code
-#         return jsonify({"message": str(e)}), 400
-
-
 # route to user login(s)
 @app.route('/sessions', methods=['POST'])
 def login():
@@ -152,3 +129,27 @@ def update_password():
 if __name__ == "__main__":
     # Run the app on host 0.0.0.0 and port 5000
     app.run(host="0.0.0.0", port=5000)
+
+
+# test code and excess
+# # route to user registration(s)
+# @app.route("/users", methods=["POST"])
+# def register_user_endpoint():
+#     """Register a new user
+#     Returns:
+#         _type_: description
+#     """
+#     try:
+#         # get email and password from form data
+#         email = request.form.get("email")
+#         password = request.form.get("password")
+
+#         # Register. That. Userrr!!!
+#         register_user(email, password)
+
+#         # respond with success message
+#         return jsonify({"email": email, "message": "user created"})
+#     except Exception as e:
+#         # If user is already registered
+#         # respond with error message and 400 status code
+#         return jsonify({"message": str(e)}), 400
