@@ -33,8 +33,7 @@ def user(email, password):
         # create a user object with that data
         user = AUTH.register_user(email, password)
         #  respond with the user's email and a confirmation message
-        response = {"email": user.email, "message": "user created"}
-        return jsonify(response), 200
+        return jsonify({"email": user.email, "message": "user created"}), 200
     except ValueError as e:  # why does it have to be 'e'?
         return jsonify({"message": str(e)}), 400
 
