@@ -78,7 +78,7 @@ class Auth:
 
     def destroy_session(self, user_id: int):
         """
-        destroy a user session by changing 
+        destroy a user session by changing
         the user's session ID to 'None'
         """
         if user_id is not None:
