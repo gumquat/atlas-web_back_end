@@ -11,6 +11,7 @@ app = Flask(__name__)
 AUTH = Auth()
 
 
+# route to the home page
 @app.route("/", methods=['GET'], strict_slashes=False)
 def payload():
     """returns json string, aka a payload
@@ -18,6 +19,7 @@ def payload():
     return jsonify({"message": "Bienvenue"})
 
 
+# route to user registration(s)
 @app.route('/users', methods=['POST'])
 def users():  # no args
     """checked for registered users
@@ -39,25 +41,30 @@ def users():  # no args
         return jsonify({"message": str(e)}), 400
 
 
-# Define the route for user registration
-@app.route("/users", methods=["POST"])
-def register_user_endpoint():
-    try:
-        # Extract email and password from form data
-        email = request.form.get("email")
-        password = request.form.get("password")
+# # route to user registration(s)
+# @app.route("/users", methods=["POST"])
+# def register_user_endpoint():
+#     """Register a new user
+#     Returns:
+#         _type_: description
+#     """
+#     try:
+#         # get email and password from form data
+#         email = request.form.get("email")
+#         password = request.form.get("password")
 
-        # Register the user
-        register_user(email, password)
+#         # Register. That. Userrr!!!
+#         register_user(email, password)
 
-        # Respond with success message
-        return jsonify({"email": email, "message": "user created"})
-    except Exception as e:
-        # If user is already registered
-        # respond with error message and 400 status code
-        return jsonify({"message": str(e)}), 400
+#         # Respond with success message
+#         return jsonify({"email": email, "message": "user created"})
+#     except Exception as e:
+#         # If user is already registered
+#         # respond with error message and 400 status code
+#         return jsonify({"message": str(e)}), 400
 
 
+# route to user login(s)
 @app.route('/sessions', methods=['POST'])
 def login():
     """i wonder what this does"""
@@ -81,6 +88,7 @@ def login():
         abort(401, "Incorrect login information")
 
 
+# route to user logout(s)
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
     """i wonder what this does"""
@@ -96,6 +104,7 @@ def logout():
     return response
 
 
+# route to user profile(s)
 @app.route('/profile', methods=['GET'], strict_slashes=False)
 def profile():
     """user profilee endpoint
@@ -109,6 +118,7 @@ def profile():
     return jsonify({"email": user.email}), 200
 
 
+# route to user password reset(s)
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
     """
@@ -123,6 +133,7 @@ def get_reset_password_token():
         abort(403)
 
 
+# route to user password reset(s)
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def update_password():
     """the 'update password' end point"""
