@@ -58,6 +58,28 @@ def register_user_endpoint():
         return jsonify({"message": str(e)}), 400
 
 
+@app.route('/sessions', methods=['POST'])
+def login():
+    """i wonder what this does"""
+    # get email and password from form data
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    if not email or not password:
+        abort(400, "Email and password are required")
+
+    try:  # check if user is registered in the db
+        if AUTH.valid_login(email, password):
+            session_id = str(uuid.uuid4())
+            # prepare respsonse to user login attempt
+            response = jsonify({"email": email, "message": "logged in"})
+            response.set_cookie('session_id', session_id)
+            return response
+        else:
+            abort(401, "Incorrect login information")
+    except ValueError:
+        abort(401, "Incorrect login information")
+
 if __name__ == "__main__":
     # Run the app on host 0.0.0.0 and port 5000
     app.run(host="0.0.0.0", port=5000)
