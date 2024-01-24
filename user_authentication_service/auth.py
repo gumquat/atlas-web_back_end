@@ -101,6 +101,7 @@ class Auth:
         pwd = _hash_password(password)
         self._db.update_user(user.id, hashed_password=pwd, reset_token=None)
 
+# OUTSIDE THE AUTH CLASS STARTS HERE
 
 def _hash_password(password: str) -> bytes:
     """hash password
@@ -112,6 +113,6 @@ def _hash_password(password: str) -> bytes:
 
 
 def _generate_uuid() -> str:
-    """Generate a new UUID and return as a string
+    """generate a UUID then return it as a string
     """
     return str(uuid.uuid4())
