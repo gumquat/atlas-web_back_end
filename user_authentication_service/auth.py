@@ -19,7 +19,4 @@ class Auth:
     def _hash_password(password: str) -> bytes:
         """hash password
         """
-        salt = bcrypt.gensalt()  # generate random salt
-        # hash the password and store it in hashed_password
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-        return hashed_password  # return the hashed password
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
