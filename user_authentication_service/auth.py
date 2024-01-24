@@ -98,10 +98,13 @@ class Auth:
         self._db.update_user(user.id, hashed_password=pwd, reset_token=None)
 
 
-def _hash_password(password: str) -> bytes:
-    """Hash a password so that it can be stored
+def _hash_password(self, password: str) -> bytes:
+    """hash password
     """
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    salt = bcrypt.gensalt()  # generate random salt
+    # hash the password and store it in hashed_password
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed_password  # return the hashed password
 
 
 def _generate_uuid() -> str:
