@@ -7,23 +7,7 @@ unittest.TestCase serves as the base class for test cases. When you create a tes
 from 'unittest.TestCase', and your test methods are defined within the class.
 ## But what are Test Methods?
 Test methods are individual functions within the test case class that perform specific tests on your code.
-### Example #1 for the above:
-```
-import unittest
-
-class MyTest(unittest.TestCase):
-    def test_addition(self, number1, number2):
-        self.assertEqual(num1 + num2, 2)
-
-    def test_subtraction(self, number1, number2):
-        self.assertEqual(num1 - num2, 2)
-
-if __name__ == '__main__':
-    unittest.main()
-```
-* 'MyTest' is a test case class that inherits from 'unittest.TestCase'. It contains two test methods, test_addition and test_subtraction, each of which uses various assertion methods provided by TestCase (e.g., assertEqual) to check if certain conditions are true. If any assertion fails, the test case will be marked as a failure.
-
-### Example #2 for the above:
+### Example #1, testing with a real API:
 ```
 import unittest
 import requests
@@ -76,7 +60,89 @@ class APITestCase(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 ```
-* 'Test_api_get_request' and 'test_api_post_request' are two test methods that make GET and POST requests, respectively, to a hypothetical API using the requests library. The assertions in each test method check various aspects of the API response to ensure it meets the expected criteria. Adjust the API endpoints and assertions based on the specifics of the API you are testing.
+*  'test_api_get_request' and 'test_api_post_request' are two test methods that make GET and POST requests, respectively, to a hypothetical API using the requests library. The assertions in each test method check various aspects of the API response to ensure it meets the expected criteria. Adjust the API endpoints and assertions based on the specifics of the API you are testing.
+
+### Example #2, Mock testing an API:
+```
+import unittest
+from unittest.mock import patch, Mock
+import requests
+
+class APITestCase(unittest.TestCase):
+    @patch('requests.get')
+    def test_api_get_request(self, mock_get):
+        # Mocking the requests.get function
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            'id': 1,
+            'name': 'John Doe',
+            'username': 'johndoe'
+        }
+        mock_get.return_value = mock_response
+
+        # Assume a hypothetical API endpoint for fetching user data
+        api_url = 'https://jsonplaceholder.typicode.com/users/1'
+
+        # Make a GET request to the API endpoint
+        response = requests.get(api_url)
+
+        # Check if the response status code is 200 (OK)
+        self.assertEqual(response.status_code, 200)
+
+        # Parse the JSON response
+        user_data = response.json()
+
+        # Check if the 'name' key is present in the response
+        self.assertIn('name', user_data)
+
+        # Check if the 'username' is equal to a specific value
+        self.assertEqual(user_data['username'], 'johndoe')
+
+    @patch('requests.post')
+    def test_api_post_request(self, mock_post):
+        # Mocking the requests.post function
+        mock_response = Mock()
+        mock_response.status_code = 201
+        mock_response.json.return_value = {
+            'id': 101,
+            'name': 'John Doe',
+            'username': 'johndoe',
+            'email': 'johndoe@example.com'
+        }
+        mock_post.return_value = mock_response
+
+        # Assume a hypothetical API endpoint for creating a new user
+        api_url = 'https://jsonplaceholder.typicode.com/users'
+
+        # Sample user data for the POST request
+        new_user_data = {
+            'name': 'John Doe',
+            'username': 'johndoe',
+            'email': 'johndoe@example.com'
+        }
+
+        # Make a POST request to the API endpoint
+        response = requests.post(api_url, json=new_user_data)
+
+        # Check if the response status code is 201 (Created)
+        self.assertEqual(response.status_code, 201)
+
+        # Parse the JSON response
+        created_user_data = response.json()
+
+        # Check if the 'id' key is present in the response
+        self.assertIn('id', created_user_data)
+
+if __name__ == '__main__':
+    unittest.main()
+
+```
+* The @patch decorator is used to replace the 'requests.get' and 'requests.post' functions with mock versions. The mock responses are then configured to simulate the behavior of the actual API responses. This allows you to isolate the tests from the actual external API calls and control the responses for testing various scenarios.
+
+### What is Patch()?
+The patch() function is part of the unittest.mock module in Python. It is a powerful tool for temporarily replacing an object or a function with a mock object during the execution of a specific code block. This is commonly used in unit testing to isolate the code being tested from external dependencies or to control the behavior of certain functions.
+The patch() function can be used both as a decorator or a context manager. When applied as a decorator, it patches the specified target for the duration of the decorated function or method. When used as a context manager, it patches the target for the duration of the block inside the with statement.
 
 # 0. Parameterize a unit test [test_utils.py]
 Write the first unit test for utils.access_nested_map
