@@ -1,3 +1,83 @@
+# Pre-Work Questions and Answers
+## What is a mock() object, and what is Mock-Testing?
+A Mock() object is a simulated object that simulates the behavior of another, real object, like an API or a database.
+Its good for doing things like letting you test API requests without sending real requests to a real API. 
+## What is unittest.TestCase?
+unittest.TestCase serves as the base class for test cases. When you create a test case class, you typically inherit
+from 'unittest.TestCase', and your test methods are defined within the class.
+## But what are Test Methods?
+Test methods are individual functions within the test case class that perform specific tests on your code.
+### Example #1 for the above:
+```
+import unittest
+
+class MyTest(unittest.TestCase):
+    def test_addition(self, number1, number2):
+        self.assertEqual(num1 + num2, 2)
+
+    def test_subtraction(self, number1, number2):
+        self.assertEqual(num1 - num2, 2)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+* 'MyTest' is a test case class that inherits from 'unittest.TestCase'. It contains two test methods, test_addition and test_subtraction, each of which uses various assertion methods provided by TestCase (e.g., assertEqual) to check if certain conditions are true. If any assertion fails, the test case will be marked as a failure.
+
+### Example #2 for the above:
+```
+import unittest
+import requests
+
+class APITestCase(unittest.TestCase):
+    def test_api_get_request(self):
+        # Assume a hypothetical API endpoint for fetching user data
+        api_url = 'https://jsonplaceholder.typicode.com/users/1'
+        
+        # Make a GET request to the API endpoint
+        response = requests.get(api_url)
+
+        # Check if the response status code is 200 (OK)
+        self.assertEqual(response.status_code, 200)
+
+        # Parse the JSON response
+        user_data = response.json()
+
+        # Check if the 'name' key is present in the response
+        self.assertIn('name', user_data)
+
+        # Check if the 'username' is equal to a specific value
+        self.assertEqual(user_data['username'], 'Bret')
+
+    def test_api_post_request(self):
+        # Assume a hypothetical API endpoint for creating a new user
+        api_url = 'https://jsonplaceholder.typicode.com/users'
+        
+        # Sample user data for the POST request
+        new_user_data = {
+            'name': 'John Doe',
+            'username': 'johndoe',
+            'email': 'johndoe@example.com'
+        }
+
+        # Make a POST request to the API endpoint
+        response = requests.post(api_url, json=new_user_data)
+
+        # Check if the response status code is 201 (Created)
+        self.assertEqual(response.status_code, 201)
+
+        # Parse the JSON response
+        created_user_data = response.json()
+
+        # Check if the 'id' key is present in the response
+        self.assertIn('id', created_user_data)
+
+        # Optionally, you may add further assertions based on the API's behavior
+
+if __name__ == '__main__':
+    unittest.main()
+```
+* 'Test_api_get_request' and 'test_api_post_request' are two test methods that make GET and POST requests, respectively, to a hypothetical API using the requests library. The assertions in each test method check various aspects of the API response to ensure it meets the expected criteria. Adjust the API endpoints and assertions based on the specifics of the API you are testing.
+
 # 0. Parameterize a unit test [test_utils.py]
 Write the first unit test for utils.access_nested_map
 Create a `TestAccessNestedMap` class which inherits from `unittest.TestCase`.
