@@ -1,39 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>{{ gettext('home_title') }}</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ _('home_title') }}</title>
 </head>
 <body>
-    <script>
-        // Messages
-        var messages = {
-            logged_in_as: {
-                en: "You are logged in as %(username)s.",
-                fr: "Vous êtes connecté en tant que %(username)s."
-            },
-            not_logged_in: {
-                en: "You are not logged in.",
-                fr: "Vous n'êtes pas connecté."
-            }
-        };
-
-        // Function to format the message with the username
-        function formatMessage(message, username) {
-            return message.replace('%(username)s', username);
-        }
-
-        // Display the appropriate message based on the user's login status
-        var welcomeParagraph = document.createElement('p');
-        if (isLoggedIn) {
-            welcomeParagraph.textContent = formatMessage(messages.logged_in_as.en, username);
-        } else {
-            welcomeParagraph.textContent = messages.not_logged_in.en;
-        }
-
-        // Append the paragraph to the body
-        document.body.appendChild(welcomeParagraph);
-    </script>
-  <h1>{{ gettext('home_header') }}</h1>
-
+  <h1>{{ _('home_header') }}</h1>
+  <p>
+    {% if g.user %}  <!--if g.user exists--> 
+    <!--check g.user.name is the username of the logged in user-->
+      {{ _('logged_in_as', username=g.user.name) }}
+    {% else %}
+      {{ _('not_logged_in') }}  <!--if g.user does not exist-->
+    {% endif %}  <!--kill here-->
+  </p>
 </body>
 </html>
