@@ -45,7 +45,7 @@ def get_locale():
 
 # MOCK CONTENT BELOW
 def get_user():
-    """Returns a user dictionary
+    """returns a user dict
     """
     user_id = request.args.get('login_as')
     if user_id:
