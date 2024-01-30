@@ -3,6 +3,7 @@
 """
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
+import pytz
 
 app = Flask(__name__)
 
@@ -58,20 +59,30 @@ def get_locale():
             if lang in app.config['locale']:
                 return lang
 
+# UNDER CONSTRUCTION // UNDER CONSTRUCTION // UNDER CONSTRUCTION
 @babel.timezoneselector
 def get_user_timezone():
     """returns the timezone to use for the current request
     """
-    # timezone from URL parameters
-    user_timezone = request.args.get('timezone')
+    # find the timezone parameter in URL parameters
+    user_timezone = request.args.get('timezone')  # get timezone from query string
     if user_timezone:
-        return user_timezone
-
-    # timezone from user settings
-    if 'user_timezone' in g:
-        return g.user_timezone
-
-    # or just default to UTC
+        try:
+            pytz.timezone(user_timezone)
+            return True
+        except pytz.exceptions.UnknownTimeZoneError:
+            return False
+    # find timezone from user settings
+    user = get_user()  # get user locale from the user's settings
+    if user and user.get('timezone'):
+        try:
+            pytz.timezone(user.get('timezone'))
+            return timezone
+        except pytz.exceptions.UnknownTimeZoneError:
+            # uhhh
+            pass
+            return user.get('timezone')
+    # default to UTC
     return 'UTC'
 
 
