@@ -30,7 +30,7 @@ babel = Babel(app)  # initialize Babel in the app
 def index():
     """`/` route
     """
-    return render_template('4-index.html')
+    return render_template('5-index.html')
 
 
 @babel.localeselector
