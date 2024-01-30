@@ -58,6 +58,22 @@ def get_locale():
             if lang in app.config['locale']:
                 return lang
 
+@babel.timezoneselector
+def get_user_timezone():
+    """returns the timezone to use for the current request
+    """
+    # timezone from URL parameters
+    user_timezone = request.args.get('timezone')
+    if user_timezone:
+        return user_timezone
+
+    # timezone from user settings
+    if 'user_timezone' in g:
+        return g.user_timezone
+
+    # or just default to UTC
+    return 'UTC'
+
 
 # MOCK CONTENT BELOW
 def get_user():
