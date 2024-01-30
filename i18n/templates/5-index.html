@@ -4,12 +4,36 @@
   <title>{{ gettext('home_title') }}</title>
 </head>
 <body>
+    <script>
+        // Messages
+        var messages = {
+            logged_in_as: {
+                en: "You are logged in as %(username)s.",
+                fr: "Vous êtes connecté en tant que %(username)s."
+            },
+            not_logged_in: {
+                en: "You are not logged in.",
+                fr: "Vous n'êtes pas connecté."
+            }
+        };
+
+        // Function to format the message with the username
+        function formatMessage(message, username) {
+            return message.replace('%(username)s', username);
+        }
+
+        // Display the appropriate message based on the user's login status
+        var welcomeParagraph = document.createElement('p');
+        if (isLoggedIn) {
+            welcomeParagraph.textContent = formatMessage(messages.logged_in_as.en, username);
+        } else {
+            welcomeParagraph.textContent = messages.not_logged_in.en;
+        }
+
+        // Append the paragraph to the body
+        document.body.appendChild(welcomeParagraph);
+    </script>
   <h1>{{ gettext('home_header') }}</h1>
-  <p>
-    {% if user_logged_in %}
-    <p>{{ welcome_message|safe }}</p>
-    {% else %}
-        <p>{{ default_message|safe }}</p>
-    {% endif %}
+
 </body>
 </html>
