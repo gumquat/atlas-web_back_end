@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """basic flask app with index.html template
 """
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
 app = Flask(__name__)
@@ -58,9 +58,8 @@ def before_request():
     """calls get_user on start to get a user
     and set it as a global variable on 'flask.g.user'
     """
-    g.user = get_user()
+    g.user = get_user()  # set g.user as a global variable
 
 
-# recompiling the dictionary hope this fixes it
 if __name__ == '__main__':
     app.run()
