@@ -42,8 +42,8 @@ def get_locale():
         return locale
 
     user = get_user()  # get user locale from the user's settings
-    # check global g for locale
-    if 'locale' in g and g.user_locale in app.config['g']:
+    # check global g for user's locale
+    if 'locale' in g and g.user_locale in app.config['g.user_locale']:
         return g.user_locale
     if user and user.get('locale') in app.config['LANGUAGES']:
         return user.get('locale')
