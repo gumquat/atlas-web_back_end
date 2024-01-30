@@ -51,7 +51,9 @@ def get_locale():
     request_header_locale = request.headers.get('LANGUAGES')
     if request_header_locale:
         # Extract the preferred language from the Accept-Language header
-        preferred_languages = [lang.strip() for lang in request_header_locale.split(',')]
+        preferred_languages = [
+            lang.strip() for lang in request_header_locale.split(',')
+            ]
         for lang in preferred_languages:
             if lang in app.config['locale']:
                 return lang
