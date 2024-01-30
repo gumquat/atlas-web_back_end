@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Simple flask app with index.html template"""
-from flask import Flask, render_template, request, g
+"""basic flask app with index.html template
+"""
+from flask import Flask, render_template, request
 from flask_babel import Babel
 
 app = Flask(__name__)
 
-users = {
+users = {  # mocking a dictionary of users for testing purposes
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
     2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
     3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
@@ -14,47 +15,52 @@ users = {
 
 
 class Config():
-    """Class which configures available languages"""
+    """CLASS - configures available languages
+    """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-app.config.from_object(Config)
-babel = Babel(app)
+app.config.from_object(Config)  # set Babel's default locale and timezone
+babel = Babel(app)  # initialize Babel in the app
 
 
 @app.route('/', strict_slashes=False)
 def index():
-    """Route for `/`"""
+    """`/` route
+    """
     return render_template('5-index.html')
 
 
 @babel.localeselector
 def get_locale():
-    """Retrieves locale from request"""
-    locale = request.args.get('locale')
-    if locale and locale in app.config['LANGUAGES']:
+    """returns the locale to use for the current request
+    """
+    locale = request.args.get('locale')  # get locale from query string
+    if locale and locale in Config.LANGUAGES:  # check if locale is valid
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
+# MOCK CONTENT BELOW
 def get_user():
-    """Returns a user dictionary"""
+    """returns a user dict
+    """
     user_id = request.args.get('login_as')
     if user_id:
-        return users.get(int(user_id))
+        return users.get(int(user_id))  # get user from users dictionary
     return None
 
 
 @app.before_request
 def before_request():
-    """
-    Uses get_user to find a user and sets it as a global
-    on flask.g.user
+    """calls get_user on start to get a user
+    and set it as a global variable on 'flask.g.user'
     """
     g.user = get_user()
 
 
+# recompiling the dictionary hope this fixes it
 if __name__ == '__main__':
     app.run()
