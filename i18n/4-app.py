@@ -43,24 +43,5 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-# MOCK CONTENT BELOW
-def get_user():
-    """Returns a user dictionary
-    """
-    user_id = request.args.get('login_as')
-    if user_id:
-        return users.get(int(user_id))  # get user from users dictionary
-    return None
-
-
-@app.before_request
-def before_request():
-    """calls get_user on start to get a user
-    and set it as a global variable on 'flask.g.user'
-    """
-    g.user = get_user()
-
-
-
 if __name__ == '__main__':
     app.run()
