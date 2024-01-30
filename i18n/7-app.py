@@ -64,16 +64,16 @@ def get_locale():
 def get_user_timezone():
     """returns the timezone to use for the current request
     """
-    # find the timezone parameter in URL parameters
-    user_timezone = request.args.get('timezone')  # get timezone from query string
+    # 1.) find the timezone parameter in URL parameters
+    user_timezone = request.args.get('timezone')  # timezone from query string
     if user_timezone:
         try:
             pytz.timezone(user_timezone)
             return True
         except pytz.exceptions.UnknownTimeZoneError:
             return False
-    # find timezone from user settings
-    user = get_user()  # get user locale from the user's settings
+    # 2.) find timezone from user settings
+    user = get_user()
     if user and user.get('timezone'):
         try:
             pytz.timezone(user.get('timezone'))
@@ -82,7 +82,7 @@ def get_user_timezone():
             # uhhh
             pass
             return user.get('timezone')
-    # default to UTC
+    # 3.) if all else fails, default to UTC
     return 'UTC'
 
 
