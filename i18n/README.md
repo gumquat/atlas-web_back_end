@@ -1,6 +1,9 @@
-### Neccessary Downloads
+# Neccessary Downloads
 pip3 install flask_babel
 
+## Pre-Work Explanations
+# What is Flask's 'g'?
+In Flask, the 'g' variable is a global object that can be used to store and share data during the lifetime of a request. It is a place to store temporary data that is specific to the current request context. The 'g' object is unique to each request and is not shared across different requests or different users.
 
 ### 0. Basic Flask app - [0-app.py + templates/0-index.html]
 
