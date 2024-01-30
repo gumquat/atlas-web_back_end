@@ -15,21 +15,22 @@ class Config():
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-app.config.from_object(Config)  # set Babel's default locale and timezone
-babel = Babel(app)  # initialize Babel in the app
+    app.config.from_object(Config)  # set Babel's default locale and timezone
+    babel = Babel(app)  # initialize Babel in the app
 
 
-@app.route('/')
-def index():
-    """Route for `/`"""
-    return render_template('2-index.html')
+    @app.route('/')
+    def index():
+        """`/` route
+        """
+        return render_template('2-index.html')
 
 
-@babel.localselector
-def get_locale():
-    """returns the locale to use for the current request
-    """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    @babel.localselector
+    def get_locale():
+        """returns the locale to use for the current request
+        """
+        return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 if __name__ == '__main__':
