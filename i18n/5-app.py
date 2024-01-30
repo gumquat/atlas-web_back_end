@@ -6,7 +6,7 @@ from flask_babel import Babel
 
 app = Flask(__name__)
 
-users = {
+users = {  # mocking a dictionary of users for testing purposes
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
     2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
     3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
