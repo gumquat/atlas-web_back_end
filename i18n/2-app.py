@@ -26,7 +26,6 @@ def index():
     return render_template('2-index.html')
 
 
-
 @babel.localselector
 def get_locale():
     """returns the locale to use for the current request
