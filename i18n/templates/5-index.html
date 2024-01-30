@@ -6,11 +6,10 @@
 <body>
   <h1>{{ gettext('home_header') }}</h1>
   <p>
-    {% if g.user %}
-      {{ gettext('logged_in_as', username=g.user.name) }}
+    {% if user_logged_in %}
+    <p>{{ welcome_message|safe }}</p>
     {% else %}
-      {{ gettext('not_logged_in') }}
+        <p>{{ default_message|safe }}</p>
     {% endif %}
-  </p>
 </body>
 </html>
