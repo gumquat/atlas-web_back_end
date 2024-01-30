@@ -61,5 +61,6 @@ def before_request():
     g.user = get_user()
 
 
+# recompiling the dictionary hope this fixes it
 if __name__ == '__main__':
     app.run()
