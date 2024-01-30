@@ -81,7 +81,7 @@ def get_user_timezone():
         except pytz.exceptions.UnknownTimeZoneError:
             # uhhh
             pass
-            return user.get('timezone')
+        return user.get('timezone')
     # 3.) if all else fails, default to UTC
     return 'UTC'
 
