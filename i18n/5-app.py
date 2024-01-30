@@ -26,7 +26,7 @@ app.config.from_object(Config)  # set Babel's default locale and timezone
 babel = Babel(app)  # initialize Babel in the app
 
 
-@app.route('/')
+@app.route('/', strict_slashes=False)
 def index():
     """`/` route
     """
@@ -59,7 +59,6 @@ def before_request():
     and set it as a global variable on 'flask.g.user'
     """
     g.user = get_user()
-
 
 
 if __name__ == '__main__':
