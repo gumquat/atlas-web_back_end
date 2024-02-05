@@ -53,7 +53,7 @@ class Cache:
         return resultKey
 
     def get(self, key: str, fn: Optional[Callable] = None) -> \
-         Union[str, bytes, int, float]:
+            Union[str, bytes, int, float]:
         """METHOD - get all data from Redis using a given key
         """
         result = self._redis.get(key)  # get/store some data from Redis
