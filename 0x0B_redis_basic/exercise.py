@@ -81,12 +81,12 @@ def replay(method: Callable) -> None:
     """
     methodName = method.__qualname__  # get the name of the method
     countKey = methodName  # get the number of calls of a key
-    inputsKey = f"{methodName}:inputs"  # get the inputs of a key
-    outputsKey = f"{methodName}:outputs"  # get the outputs of a key
+    inputKey = f"{methodName}:inputs"  # get the inputs of a key
+    outputKey = f"{methodName}:outputs"  # get the outputs of a key
 
     count = method.__self__._redis.get(countKey)  # set the number of calls
-    inputs = method.__self__._redis.lrange(inputsKey, 0, -1)  # set inputs
-    outputs = method.__self__._redis.lrange(outputsKey, 0, -1)  # set outputs
+    inputs = method.__self__._redis.lrange(inputKey, 0, -1)  # set inputs
+    outputs = method.__self__._redis.lrange(outputKey, 0, -1)  # set outputs
 
     print(f"{methodName} was called {int(count)} times:")  # make a print func
     # for each input/outputr string in the 'zip'...
