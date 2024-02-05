@@ -25,10 +25,12 @@ def call_history(method: Callable) -> Callable:
 
     @wraps(method)
     def wrapper(self, *args, **kwargs):
-        self._redis.rpush(input_key, str(args))
         result = method(self, *args, **kwargs)
+
+        self._redis.rpush(input_key, str(args))
         self._redis.rpush(output_key, str(result))
         return result
+    return wrapper
 
 class Cache:
     """CLASS - 'Cache' that implements a cache using Redis
