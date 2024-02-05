@@ -22,14 +22,14 @@ class Cache:
         self._redis.set(resultKey, data)
         return resultKey
 
-    def get(self, key: str, fn: Optional[Callable]) -> \
+    def get(self, key: str, fn: Optional[Callable] = None) -> \
         Union[str, bytes, int, float]:
         """METHOD - get all data from Redis using a given key
         """
-        result = self._redis.get(key)
+        result = self._redis.get(key)  # get/store some data from Redis
 
         if result is not None and fn:  # if result !None and fn is defined
-            result = fn(result)  # apply fn to result
+            result = fn(result)  # apply the passed function 'fn' to result
         return result
 
     def get_str(self, key: str) -> Optional[str]:
