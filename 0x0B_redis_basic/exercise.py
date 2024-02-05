@@ -13,7 +13,7 @@ class Cache:
         self._redis = redis.Redis()  # store inst. of the Redis in private var
         self._redis.flushdb()  # flush the Redis database
 
-    def store(self, data: Union[int, str, bytes, float]) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """METHOD - gen random key and store data in Redis
         Args:
             key (str): 
