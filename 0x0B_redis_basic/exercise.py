@@ -70,3 +70,23 @@ class Cache:
         """
         result = self.get(key, int)
         return result
+
+
+def replay(method: Callable) -> None:
+    """gets and prints the history of calls of a specified method
+    """
+    methodName = method.__qualname__  # get the name of the method
+    countKey = methodName  # get the number of calls of a key
+    inputsKey = f"{methodName}:inputs"  # get the inputs of a key
+    outputsKey = f"{methodName}:outputs"  # get the outputs of a key
+
+    count = method.__self__._redis.get(countKey)  # set the number of calls
+    inputs = method.__self__._redis.lrange(inputsKey, 0, -1)  # set the inputs
+    outputs = method.__self__._redis.lrange(outputsKey, 0, -1)  # set the outputs
+
+    print(f"{methodName} was called {int(count)} times:")  # make a print func
+    # for each input/outputr string in the 'zip'...
+    # ...print it out in the required format
+    for input_str, output_str in zip(inputs, outputs):  
+        print(f"{methodName}(*{input_str.decode('utf-8')}) ->\
+              {output_str.decode('utf-8')}")
