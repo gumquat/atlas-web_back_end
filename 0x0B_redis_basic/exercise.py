@@ -15,12 +15,31 @@ class Cache:
 
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """METHOD - gen random key and store data in Redis
-        Args:
-            key (str): 
-            value (str):
         Returns:
             str: the random key
         """
         resultKey = str(uuid.uuid4())
         self._redis.set(resultKey, data)
         return resultKey
+
+    def get(self, key: str, fn: Optional[Callable]) -> \
+        Union[str, bytes, int, float]:
+        """METHOD - get all data from Redis using a given key
+        """
+        result = self._redis.get(key)
+
+        if result is not None and fn:  # if result !None and fn is defined
+            result = fn(result)  # apply fn to result
+        return result
+
+    def get_str(self, key: str) -> Optional[str]:
+        """METHOD - get type 'str' data from Redis using a given key
+        """
+        result = self.get(key, str)
+        return result
+
+    def get_int(self, key: str) -> Optional[int]:
+        """METHOD - get type 'int' data from Redis using a given key
+        """
+        result = self.get(key, int)
+        return result
