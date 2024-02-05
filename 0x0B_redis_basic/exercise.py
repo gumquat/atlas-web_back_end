@@ -6,6 +6,7 @@ import uuid
 from typing import Union, Optional, Callable
 from functools import wraps
 
+
 def count_calls(method: Callable) -> Callable:
     """DECORATER - counts for a key the number of times a method is called
     """
@@ -16,6 +17,7 @@ def count_calls(method: Callable) -> Callable:
         self._redis.incr(resultKey)
         return method(self, *args, **kwargs)
     return wrapper
+
 
 def call_history(method: Callable) -> Callable:
     """DECORATER - stores the input/output history of calls for a method
@@ -31,6 +33,7 @@ def call_history(method: Callable) -> Callable:
         self._redis.rpush(output_key, str(result))
         return result
     return wrapper
+
 
 class Cache:
     """CLASS - 'Cache' that implements a cache using Redis
@@ -48,6 +51,7 @@ class Cache:
         resultKey = str(uuid.uuid4())
         self._redis.set(resultKey, data)
         return resultKey
+
 
     def get(self, key: str, fn: Optional[Callable] = None) -> \
         Union[str, bytes, int, float]:
@@ -81,12 +85,12 @@ def replay(method: Callable) -> None:
     outputsKey = f"{methodName}:outputs"  # get the outputs of a key
 
     count = method.__self__._redis.get(countKey)  # set the number of calls
-    inputs = method.__self__._redis.lrange(inputsKey, 0, -1)  # set the inputs
-    outputs = method.__self__._redis.lrange(outputsKey, 0, -1)  # set the outputs
+    inputs = method.__self__._redis.lrange(inputsKey, 0, -1)  # set inputs
+    outputs = method.__self__._redis.lrange(outputsKey, 0, -1)  # set outputs
 
     print(f"{methodName} was called {int(count)} times:")  # make a print func
     # for each input/outputr string in the 'zip'...
     # ...print it out in the required format
-    for input_str, output_str in zip(inputs, outputs):  
+    for input_str, output_str in zip(inputs, outputs):
         print(f"{methodName}(*{input_str.decode('utf-8')}) ->\
               {output_str.decode('utf-8')}")
