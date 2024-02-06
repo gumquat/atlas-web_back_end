@@ -1,11 +1,11 @@
 # Pre-Work Information
 
 ### Use “container-on-demand” to run MySQL
+* Ask for container Ubuntu 18.04 - Python 3.7
+* Connect via SSH
+* Or via the WebTerminal
+* In the container, you should start MySQL before playing with it:
 
-    * Ask for container Ubuntu 18.04 - Python 3.7
-    * Connect via SSH
-    * Or via the WebTerminal
-    * In the container, you should start MySQL before playing with it:
 ```
 $ service mysql start
  * MySQL Community Server 5.7.30 is started
