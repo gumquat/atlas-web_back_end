@@ -1,26 +1,39 @@
 # Pre-Work Information
 
-### Use “container-on-demand” to run MySQL
+## Use “container-on-demand” to run MySQL
 * Ask for container Ubuntu 18.04 - Python 3.7
 * Connect via SSH
 * Or via the WebTerminal
 * In the container, you should start MySQL before playing with it:
 
+### 1.) Install Docker (if not already installed)
 ```
-$ service mysql start
- * MySQL Community Server 5.7.30 is started
-$
-$ cat 0-list_databases.sql | mysql -uroot -p my_database
-Enter password: 
-Database
-information_schema
-mysql
-performance_schema
-sys
-$
+sudo apt update
+sudo apt install docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
 ```
 
-NOTE: In the container, credentials are root/root
+### 2.) Pull MySQL Docker Image
+```
+sudo docker pull mysql
+```
+
+### 3.) Run MySQL Container
+```
+sudo docker run -d --name=mysql-container -e MYSQL_ROOT_PASSWORD=your_password mysql
+
+```
+* Replace your_password with your desired MySQL root password.
+
+### 4.) Connect to MySQL
+```
+sudo docker exec -it mysql-container mysql -uroot -p
+```
+* You'll be prompted to enter the password you set in step 4.
+You now have MySQL running in a container and can connect to it either directly through the command line or via SSH/WebTerminal.
+
+# Project Assignments
 
 ### 0. We are all unique! - [0-uniq_users.sql]
 
