@@ -15,6 +15,9 @@ BEGIN
         INSERT INTO projects (name) VALUES (project_name);
         -- get the last inserted project's ID
         SET project_id = LAST_INSERT_ID();
-END; //
-
+    END IF;
+    -- insert the new record into the 'corrections table' with
+    -- user_id, project_id, and score
+    INSERT INTO corrections (user_id, project_id, score) VALUES (user_id, project_id, score);
+END//
 DELIMITER;
