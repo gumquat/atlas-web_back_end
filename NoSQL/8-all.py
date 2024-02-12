@@ -18,3 +18,6 @@ def list_all(mongo_collection):
         documents.append(document)
 
     return documents
+
+    # shorter, better way BELOW
+    # return list(mongo_collection.find())
