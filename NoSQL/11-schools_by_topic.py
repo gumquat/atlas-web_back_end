@@ -9,9 +9,8 @@
 def schools_by_topic(mongo_collection, topic):
     """returns a list of schools that have a specific topic
     """
-    # finds documents where the 'topic' matches
-    cursor = mongo_collection.find({"topics": topic})
-    # extract the school names and put it in list 'schools'
-    schools = [document["name"] for document in cursor]
+    # find documents where the 'topic' matches up...
+    # ...put the name of the schools into list 'schools'
+    schools = mongo_collection.find({"topics": topic})
 
     return schools  # returns the list of school names
