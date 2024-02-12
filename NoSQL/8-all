@@ -11,7 +11,7 @@ Return an empty list if no document in the collection
 def list_all(mongo_collection):
     """lists all documents in a collection:
     """
-    documents =[]
+    documents = []
     cursor = mongo_collection.find({})
 
     for document in cursor:
