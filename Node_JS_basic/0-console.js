@@ -6,5 +6,4 @@ function displayMessage(message) {
   console.log(message);
 }
 
-//allows other files to use the function 'displayMessage'
 module.exports = displayMessage;
