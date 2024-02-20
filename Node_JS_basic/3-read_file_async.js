@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 
 async function countStudents(path) {
   try {
-    
+
     // await for async purposes
     const data = await fs.readFile(path, 'utf8');
 
