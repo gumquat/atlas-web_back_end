@@ -1,38 +1,44 @@
-// define function 'countStudents'
 const fs = require('fs');
 
 function countStudents(path) {
   try {
-    // read the database file synchronously
     const data = fs.readFileSync(path, 'utf8');
-    
-    // split the data into lines and filter out empty lines
-    const lines = data.split('\n').filter(line => line.trim() !== '');
-    
-    // count the total number of students
-    const totalStudents = lines.length - 1; // exclude header line
-    
-    console.log(`Number of students: ${totalStudents}`);
-    
-    // extract field names from the header line
-    const fields = lines[0].split(',');
-    
-    // count the number of students in each field
-    for (let i = 1; i < fields.length; i++) {
-      const fieldName = fields[i];
-      const studentsInField = lines.slice(1).reduce((count, line) => {
-        const values = line.split(',');
-        return values[i].trim() !== '' ? count + 1 : count;
-      }, 0);
-      const studentsList = lines.slice(1)
-                                .map(line => line.split(',')[i].trim())
-                                .filter(name => name !== '')
-                                .join(', ');
 
-      console.log(`Number of students in ${fieldName}: ${studentsInField}. List: ${studentsList}`);
+    // split the data into rows
+    // remove empty lines
+    const rows = data.split('\n').filter(row => row.trim());
+
+    // extract headers from the header row
+    const [headerRow, ...studentRows] = rows;
+    const headers = headerRow.split(',');
+
+    // find index of 'field' and 'firstname' in the header
+    const fieldIndex = headers.indexOf('field');
+    const firstNameIndex = headers.indexOf('firstname');
+
+    // get count of total number of students
+    console.log(`Number of students: ${studentRows.length}`);
+
+    // group students by field
+    // count them
+    const studentsByField = studentRows.reduce((acc, row) => {
+      const fields = row.split(',');
+      const field = fields[fieldIndex];
+      if (!acc[field]) {
+        acc[field] = [];
+      }
+      acc[field].push(fields[firstNameIndex]);
+      return acc;
+    }, {});
+
+    // print number of students in each field, include their names
+    for (const field in studentsByField) {
+      const students = studentsByField[field];
+      console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
     }
-  } catch (error) {
-    // throw error if database is not available
+  } catch (err) {
     throw new Error('Cannot load the database');
   }
 }
+
+module.exports = countStudents;
