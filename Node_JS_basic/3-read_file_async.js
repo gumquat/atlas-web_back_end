@@ -6,7 +6,7 @@ async function countStudents(path) {
     const data = await fs.readFile(path, 'utf8');
     // split the data into rows
     // remove empty lines
-    const rows = data.split('\n').filter(row => row.trim());
+    const rows = data.split('\n').filter((row) => row.trim());
     // extract headers from the header row
     const [headerRow, ...studentRows] = rows;
     const headers = headerRow.split(',');
@@ -28,11 +28,12 @@ async function countStudents(path) {
     }, {});
 
     // print number of students in each field, include their names
-    for (const field in studentsByField) {
+    const fields = Object.keys(studentsByField);
+    for (let i = 0; i < fields.length; i += 1) {
       // split rows
       // retrieve field
       //store it in 'students'
-
+      const field = fields[i];
       const students = studentsByField[field];
       console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
     }
@@ -42,3 +43,5 @@ async function countStudents(path) {
 }
 
 module.exports = countStudents;
+
+
