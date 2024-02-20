@@ -8,13 +8,13 @@ async function countStudents(path) {
     const headers = rows.shift().split(',');
     const fieldIndex = headers.indexOf('field');
     const firstNameIndex = headers.indexOf('firstname');
-    const fields = [...new Set(rows.map(row => row.split(',')[fieldIndex]))];
+    const fields = [...new Set(rows.map((row) => row.split(',')[fieldIndex]))];
 
     let result = `Number of students: ${rows.length}\n`;
 
-    fields.forEach(field => {
-      const students = rows.filter(row => row.split(',')[fieldIndex] === field);
-      result += `Number of students in ${field}: ${students.length}. List: ${students.map(student => student.split(',')[firstNameIndex]).join(', ')}\n`;
+    fields.forEach((field) => {
+      const students = rows.filter((row) => row.split(',')[fieldIndex] === field);
+      result += `Number of students in ${field}: ${students.length}. List: ${students.map((student) => student.split(',')[firstNameIndex]).join(', ')}\n`;
     });
 
     return result;
