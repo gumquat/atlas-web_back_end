@@ -17,6 +17,7 @@ process.stdin.on('end', () => {
   process.stdout.write('This important software is now closing\n');
 });
 
+
 /**the code below fails ONE check but OTHERWISE WORKS FINE
 // display welcome message
 console.log('Welcome to Holberton School, what is your name?');
