@@ -2,59 +2,47 @@ const http = require('http');
 const url = require('url');
 const fs = require('fs').promises;
 
-function countStudents(path) {
-  return fs.readFile(path, 'utf8')
-    .then((data) => {
-      let result = '';
-      // split the data into rows and remove empty lines
-      const rows = data.split('\n').filter((row) => row);
+async function countStudents(path) {
+  try {
+    const data = await fs.readFile(path, 'utf8');
+    const rows = data.split('\n').filter(Boolean);
+    const headers = rows.shift().split(',');
+    const fieldIndex = headers.indexOf('field');
+    const firstNameIndex = headers.indexOf('firstname');
+    const fields = [...new Set(rows.map(row => row.split(',')[fieldIndex]))];
+    
+    let result = `Number of students: ${rows.length}\n`;
 
-      // find index of field and firstName in csv
-      const headers = rows.shift().split(',');
-      const fieldIndex = headers.indexOf('field');
-      const firstNameIndex = headers.indexOf('firstname');
-
-      // retrieve only the fields, without repeats
-      const fields = [...new Set(rows.map((row) => row.split(',')[fieldIndex]))];
-
-      result += `Number of students: ${rows.length}\n`;
-
-      fields.forEach((field) => {
-        // split rows and retrieve field; if this matches current field, store
-        // in students
-        const students = rows.filter((row) => row.split(',')[fieldIndex] === field);
-        // retrieve names and print them comma-separated
-        result += `Number of students in ${field}: ${students.length}. List: ${students.map((student) => student.split(',')[firstNameIndex]).join(', ')}\n`;
-      });
-      return result;
-    })
-    .catch(() => {
-      throw new Error('Cannot load the database');
+    fields.forEach(field => {
+      const students = rows.filter(row => row.split(',')[fieldIndex] === field);
+      result += `Number of students in ${field}: ${students.length}. List: ${students.map(student => student.split(',')[firstNameIndex]).join(', ')}\n`;
     });
+
+    return result;
+  } catch (error) {
+    throw new Error('Cannot load the database');
+  }
 }
 
-const app = http.createServer((req, res) => {
+const app = http.createServer(async (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   const q = url.parse(req.url, true).path;
   if (q === '/') {
     res.write('Hello Holberton School!');
     res.end();
-  } else if (q === '/students') {
-    res.write('This is the list of our students\n');
-    countStudents(process.argv[2])
-      .then((data) => {
-        res.write(data);
-        res.end();
-      })
-      .catch((error) => {
-        res.write(error.message);
-        res.end();
-      });
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.write('Page not found');
-    res.end();
   }
-}).listen(1245);
+  if (q === '/students') {
+    res.write('This is the list of our students\n');
+    try {
+      const data = await countStudents(process.argv[2]);
+      res.write(data);
+    } catch (error) {
+      res.write(error.message);
+    } finally {
+      res.end();
+    }
+  }
+});
 
+app.listen(1245);
 module.exports = app;
