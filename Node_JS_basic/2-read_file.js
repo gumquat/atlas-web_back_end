@@ -33,6 +33,7 @@ function countStudents(path) {
 
     // print number of students in each field, include their names
     for (const field in studentsByField) {
+      doSomething(key);
       const students = studentsByField[field];
       console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
     }
