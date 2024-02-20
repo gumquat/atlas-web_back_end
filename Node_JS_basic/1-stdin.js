@@ -18,7 +18,8 @@ process.stdin.on('end', () => {
 });
 
 
-/**the code below fails ONE check but OTHERWISE WORKS FINE
+/**
+the code below fails ONE check but OTHERWISE WORKS FINE
 // display welcome message
 console.log('Welcome to Holberton School, what is your name?');
 
