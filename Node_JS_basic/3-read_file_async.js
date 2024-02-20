@@ -32,7 +32,7 @@ async function countStudents(path) {
     for (let i = 0; i < fields.length; i += 1) {
       // split rows
       // retrieve field
-      //store it in 'students'
+      // store it in 'students'
       const field = fields[i];
       const students = studentsByField[field];
       console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
@@ -43,5 +43,3 @@ async function countStudents(path) {
 }
 
 module.exports = countStudents;
-
-
