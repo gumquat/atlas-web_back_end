@@ -10,7 +10,7 @@ async function countStudents(path) {
     const fieldIndex = headers.indexOf('field');
     const firstNameIndex = headers.indexOf('firstname');
     const fields = [...new Set(rows.map(row => row.split(',')[fieldIndex]))];
-    
+
     let result = `Number of students: ${rows.length}\n`;
 
     fields.forEach(field => {
