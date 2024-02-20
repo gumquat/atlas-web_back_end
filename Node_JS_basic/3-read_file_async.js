@@ -38,6 +38,7 @@ async function countStudents(path) {
       // split rows
       // retrieve field
       //store it in 'students'
+
       const students = studentsByField[field];
       console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
     }
