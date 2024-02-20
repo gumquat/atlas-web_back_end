@@ -6,7 +6,7 @@ function countStudents(path) {
 
     // split the data into rows
     // remove empty lines
-    const rows = data.split('\n').filter(row => row.trim());
+    const rows = data.split('\n').filter((row) => row.trim());
 
     // extract headers from the header row
     const [headerRow, ...studentRows] = rows;
