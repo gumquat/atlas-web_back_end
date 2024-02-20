@@ -32,7 +32,7 @@ function countStudents(path) {
     }, {});
 
     // print number of students in each field, include their names
-    for (let i = 0; i < Object.keys(studentsByField).length; i++) {
+    for (let i = 0; i < Object.keys(studentsByField).length; i += 1) {
       const field = Object.keys(studentsByField)[i];
       const students = studentsByField[field];
       console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
