@@ -4,11 +4,8 @@ const expect = require('chai').expect;
 const request = require('request');
 
 describe('Index page', function() {
-  // Existing tests for the index page
 });
 
-// New test suite for the cart page
-// Not sure if my error is here or not....
 describe('Cart page', function() {
   it('returns status code 200 when :id is a number', function(done) {
     request('http://localhost:7865/cart/12', function(error, response, body) {
