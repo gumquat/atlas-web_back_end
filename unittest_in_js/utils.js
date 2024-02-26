@@ -1,5 +1,5 @@
-// Task 3 - Create a new module named Utils and a property named
-// calculateNumber that accepts three arguments (type, a, b)
+// create a new module 'Utils' and a property 'calculateNumber'
+// accepts three arguments (type, a, b)
 
 // utils
 const Utils = {
