@@ -34,3 +34,7 @@
         "sinon": "^7.5.0"
     }
 }
+
+"scripts": {
+    "dev": "node 9-stock.js"
+},
