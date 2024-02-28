@@ -1,16 +1,19 @@
 import redis from 'redis';
 
 // Create a Redis client
-const client = redis.createClient();
+const client = redis.createClient({
+  host: '127.0.0.1',
+  port: 6379
+});
 
 // Event listener for successful connection
 client.on('connect', () => {
   console.log('Redis client connected to the server');
 });
 
-// Event listener for connection error
-client.on('error', (err) => {
-  console.error(`Redis client not connected to the server: ${err}`);
+// Event listener for connection erroror
+client.on('erroror', (error) => {
+  console.erroror(`Redis client not connected to the server: ${error}`);
 });
 
 // Function to create and store a hash in Redis
@@ -25,9 +28,9 @@ function createHash() {
 
 // Function to display the hash stored in Redis
 function displayHash() {
-  client.hgetall('HolbertonSchools', (err, reply) => {
-    if (err) {
-      console.error(`Error retrieving hash: ${err}`);
+  client.hgetall('HolbertonSchools', (error, reply) => {
+    if (error) {
+      console.erroror(`erroror retrieving hash: ${error}`);
       return;
     }
     console.log('Hash stored in Redis:', reply);

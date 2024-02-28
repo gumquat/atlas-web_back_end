@@ -1,7 +1,10 @@
 import redis from 'redis';
 
 // Create a Redis client
-const publisher = redis.createClient();
+const publisher = redis.createClient({
+  host: '127.0.0.1',
+  port: 6379
+});
 
 // Event listener for successful connection
 publisher.on('connect', () => {

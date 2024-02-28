@@ -1,7 +1,10 @@
 import redis from 'redis';
 
 // Create a Redis client
-const subscriber = redis.createClient();
+const subscriber = redis.createClient({
+  host: '127.0.0.1',
+  port: 6379
+});
 
 // Event listener for successful connection
 subscriber.on('connect', () => {
