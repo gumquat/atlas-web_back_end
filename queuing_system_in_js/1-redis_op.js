@@ -1,7 +1,10 @@
 import redis from 'redis';
 
 // Create a Redis client
-const client = redis.createClient();
+const client = redis.createClient({
+  host: '127.0.0.1',
+  port: 6379
+});
 
 // Event listener for successful connection
 client.on('connect', () => {
@@ -9,8 +12,8 @@ client.on('connect', () => {
 });
 
 // Event listener for connection error
-client.on('error', (err) => {
-  console.error(`Redis client not connected to the server: ${err}`);
+client.on('error', (error) => {
+  console.error(`Redis client not connected to the server: ${error}`);
 });
 
 // Function to set a new school value in Redis
@@ -20,9 +23,9 @@ function setNewSchool(schoolName, value) {
 
 // Function to display the value for a given school
 function displaySchoolValue(schoolName) {
-  client.get(schoolName, (err, reply) => {
+  client.get(schoolName, (error, reply) => {
     if (err) {
-      console.error(`Error retrieving value for ${schoolName}: ${err}`);
+      console.error(`Error retrieving value for ${schoolName}: ${error}`);
       return;
     }
     console.log(`Value for ${schoolName}: ${reply}`);

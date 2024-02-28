@@ -2,7 +2,10 @@ import redis from 'redis';
 import { promisify } from 'util';
 
 // Create a Redis client
-const client = redis.createClient();
+const client = redis.createClient({
+  host: '127.0.0.1',
+  port: 6379
+});
 
 // Promisify the get method of the Redis client
 const getAsync = promisify(client.get).bind(client);
